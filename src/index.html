@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <title>Ionic App</title>
@@ -30,10 +31,25 @@
   <link href="build/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
+
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCv3jGkZ-dELU3NGrw04096u8ijZwdOdE0",
+      authDomain: "projecthousemate.firebaseapp.com",
+      databaseURL: "https://projecthousemate.firebaseio.com",
+      projectId: "projecthousemate",
+      storageBucket: "projecthousemate.appspot.com",
+      messagingSenderId: "975050526675"
+    };
+    firebase.initializeApp(config);
+  </script>
 
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
@@ -46,4 +62,5 @@
   <script src="build/main.js"></script>
 
 </body>
+
 </html>

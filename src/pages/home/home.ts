@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Facebook } from '@ionic-native/facebook';
 
 @Component({
   selector: 'page-home',
@@ -14,10 +15,9 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    private alertCtrl: AlertController
-  ) {
-
-  }
+    private alertCtrl: AlertController,
+    public facebook: Facebook
+  ) { }
 
   setRent(event) {
     if (event.target.value.length > 1) {
@@ -56,6 +56,20 @@ export class HomePage {
       buttons: ['Okay']
     });
     alert.present();
+  }
+
+  facebookLogin(): Promise<any> {
+    return this.facebook.login(['email'])
+      .then(response => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider
+          .credential(response.authResponse.accessToken);
+
+        firebase.auth().signInWithCredential(facebookCredential)
+          .then(success => {
+            console.log("Firebase success: " + JSON.stringify(success));
+          });
+
+      }).catch((error) => { console.log(error) });
   }
 
 
