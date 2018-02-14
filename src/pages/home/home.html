@@ -1,48 +1,39 @@
 <ion-header>
-  <ion-navbar>
+
+  <ion-navbar color="primary">
     <ion-title>
       Housemate
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addItem()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
-  <ion-card>
-    <ion-card-header>Rent</ion-card-header>
-    <ion-card-content>
-      <ion-input placeholder="{{rent}} Due" name="rent" type="number" (input)="setRent($event)"></ion-input>
-      <button ion-button block color="dark" type="button" name="rent" (click)="sendRent()">Rent</button>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>Food</ion-card-header>
-    <ion-card-content>
-      <ion-input placeholder="Snaked Item" name="snaked" type="text" (input)="setSnaked($event)"></ion-input>
-      <button ion-button block color="dark" type="button" name="snaked" (click)="sendSnaked()">Snaked</button>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>Facebook</ion-card-header>
-    <ion-card-content>
-      <button ion-button block type="button" name="login" (click)="facebookLogin()">Login</button>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- <ion-card>
-    <ion-card-content>
-      <ion-row>
-        <ion-col col-6>
-          <button ion-button block color="dark" type="button" name="bins" (click)="sendBins()">Bins</button>
-        </ion-col>
-        <ion-col col-6>
-          <button ion-button block color="dark" type="button" name="wash" (click)="sendBins()">Washing</button>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card> -->
-
+  <ion-list class="todo-list">
+    <ion-item-sliding *ngFor="let item of (listItems | async)">
+      <ion-item [class.done]="item.done" class="todo-list-item">
+        <span class="todo-list-item-text">{{item.text}}</span>
+        <button class="todo-list-item-check" ion-button icon-only clear (click)="toggleDone(item)">
+          <ion-icon [name]="!item.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="secondary" (click)="deleteItem(item)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+      <ion-item-options side="left">
+        <button ion-button color="tertiary">
+          <ion-icon name="create"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
 </ion-content>
