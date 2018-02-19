@@ -29,7 +29,7 @@
         </button>
       </ion-item-options>
       <ion-item-options side="left">
-        <button ion-button color="tertiary">
+        <button ion-button color="tertiary" (click)="editItem(todoItem)">
           <ion-icon name="create"></ion-icon>
         </button>
       </ion-item-options>
@@ -49,16 +49,11 @@
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
-      <ion-item-options side="left">
-        <button ion-button color="tertiary">
-          <ion-icon name="create"></ion-icon>
-        </button>
-      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 
   <ion-fab right bottom>
-    <button ion-fab color="secondary" (click)="addItem()">
+    <button ion-fab color="secondary" (click)="openAddItem()">
       <ion-icon name="add"></ion-icon>
     </button>
     <!-- <ion-fab-list side="top">

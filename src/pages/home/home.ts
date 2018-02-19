@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
+import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 // import { ListItem } from "../../models/list-item/list-item.interface";
@@ -19,6 +20,7 @@ export class HomePage {
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public facebook: Facebook,
+    private modalCtrl: ModalController,
     private database: AngularFireDatabase,
   ) {
     this.itemListRef$ = this.database.list<any>('/itemlist');
@@ -26,62 +28,44 @@ export class HomePage {
 
   ngOnInit() {
     this.clearOldItems();
-    // this.listItems = this.itemListRef$.valueChanges();
     this.todoItems = this.getItems(false).valueChanges();
     this.doneItems = this.getItems(true).valueChanges();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WelcomePage');
+    console.log('ionViewDidLoad Welcome');
   }
 
   getItems(done: boolean) {
-    console.log("done items", this.database.list<any>('/itemlist', ref => ref.orderByChild('done').equalTo(done)).valueChanges());
     return this.database.list<any>('/itemlist', ref => ref.orderByChild('done').equalTo(done));
   }
 
-  addItem() {
-    let prompt = this.alertCtrl.create({
-      title: 'Item Name',
-      inputs: [
-        {
-          name: 'text',
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add',
-          handler: data => {
-            this.saveItem(data.text)
-          }
-        }
-      ]
-    });
-    prompt.present();
+  openAddItem() {
+    const addModalOptions: ModalOptions = {
+      showBackdrop: true,
+      enableBackdropDismiss: true,
+    };
+    const addModalData = {
+      id: "",
+      text: "",
+      new: true
+    };
+    const addItemModal: Modal = this.modalCtrl.create('ItemModal', { data: addModalData }, addModalOptions);
+    addItemModal.present();
   }
 
-  saveItem(text: string) {
-    const newItemRef = this.itemListRef$.push({});
-    newItemRef.set({
-      id: newItemRef.key,
-      text: text,
-      timecreated: Math.floor(Date.now() / 1000),
-      done: false
-    });
-  }
-
-  editItem(item, text: string) {
-    this.database.object('/itemlist/' + item.id)
-      .update({
-        text: text,
-        timecreated: Math.floor(Date.now() / 1000),
-      });
+  editItem(item) {
+    const editModalOptions: ModalOptions = {
+      showBackdrop: true,
+      enableBackdropDismiss: true,
+    };
+    const editModalData = {
+      id: item.id,
+      text: item.text,
+      new: false
+    };
+    const editItemModal: Modal = this.modalCtrl.create('ItemModal', { data: editModalData }, editModalOptions);
+    editItemModal.present();
   }
 
   deleteItem(item) {
