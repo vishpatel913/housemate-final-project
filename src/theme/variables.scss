@@ -22,7 +22,8 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-
+$text-input-highlight-color-valid: #E91E63;
+$text-input-highlight-color-invalid: #E91E63;
 
 
 // Named Color Variables
@@ -34,8 +35,9 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
+  primary:    #00AA8d,
+  secondary:  #E91E63,
+  tertiary:   #FDD835,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
@@ -46,15 +48,15 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-
-
+$text-input-ios-show-focus-highlight: true;
+$text-input-ios-highlight-color: #E91E63;
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
-
+$text-input-md-highlight-color: #E91E63;
+$label-md-text-color-focused: #E91E63;
 
 // App Windows Variables
 // --------------------------------------------------
