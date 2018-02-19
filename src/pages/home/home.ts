@@ -12,7 +12,6 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 export class HomePage {
 
   itemListRef$: AngularFireList<any>;
-  // listItems;
   todoItems;
   doneItems;
 
