@@ -4,27 +4,27 @@
     <ion-title>
       Housemate
     </ion-title>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button icon-only (click)="addItem()">
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
 
-  <ion-list class="todo-list">
-    <ion-item-sliding *ngFor="let item of (listItems | async)">
-      <ion-item [class.done]="item.done" class="todo-list-item">
-        <span class="todo-list-item-text">{{item.text}}</span>
-        <button class="todo-list-item-check" ion-button icon-only clear (click)="toggleDone(item)">
-          <ion-icon [name]="!item.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
+  <ion-list no-lines class="todo-list">
+    <ion-item-sliding *ngFor="let todoItem of (todoItems | async)">
+      <ion-item class="todo-list-item">
+        <span class="todo-list-item-text">{{todoItem.text}}</span>
+        <button class="todo-list-item-check" ion-button icon-only clear (click)="toggleDone(todoItem)">
+          <ion-icon [name]="!todoItem.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
         </button>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="deleteItem(item)">
+        <button ion-button color="secondary" (click)="deleteItem(todoItem)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
@@ -35,5 +35,37 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <ion-list no-lines class="todo-list">
+    <ion-item-sliding *ngFor="let doneItem of (doneItems | async)">
+      <ion-item class="todo-list-item done">
+        <span class="todo-list-item-text">{{doneItem.text}}</span>
+        <button class="todo-list-item-check" ion-button icon-only clear (click)="toggleDone(doneItem)">
+          <ion-icon [name]="!doneItem.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="secondary" (click)="deleteItem(doneItem)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+      <ion-item-options side="left">
+        <button ion-button color="tertiary">
+          <ion-icon name="create"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary" (click)="addItem()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <!-- <ion-fab-list side="top">
+      <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+    </ion-fab-list> -->
+  </ion-fab>
 
 </ion-content>

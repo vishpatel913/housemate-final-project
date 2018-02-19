@@ -11,7 +11,9 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 export class HomePage {
 
   itemListRef$: AngularFireList<any>;
-  listItems;
+  // listItems;
+  todoItems;
+  doneItems;
 
   constructor(
     public navCtrl: NavController,
@@ -20,19 +22,22 @@ export class HomePage {
     private database: AngularFireDatabase,
   ) {
     this.itemListRef$ = this.database.list<any>('/itemlist');
-    this.clearOldItems();
   }
 
   ngOnInit() {
-    this.listItems = this.itemListRef$.valueChanges();
+    this.clearOldItems();
+    // this.listItems = this.itemListRef$.valueChanges();
+    this.todoItems = this.getItems(false).valueChanges();
+    this.doneItems = this.getItems(true).valueChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
   }
 
-  getDoneItems() {
-    return this.database.list<any>('/itemlist', ref => ref.orderByChild('done').equalTo(true));
+  getItems(done: boolean) {
+    console.log("done items", this.database.list<any>('/itemlist', ref => ref.orderByChild('done').equalTo(done)).valueChanges());
+    return this.database.list<any>('/itemlist', ref => ref.orderByChild('done').equalTo(done));
   }
 
   addItem() {
@@ -96,11 +101,11 @@ export class HomePage {
 
   clearOldItems() {
     let now = Math.floor(Date.now() / 1000);
-    if (this.getDoneItems().valueChanges()) {
-      this.getDoneItems().valueChanges()
+    if (this.getItems(true).valueChanges()) {
+      this.getItems(true).valueChanges()
         .subscribe(snapshots => {
           snapshots.forEach(snapshot => {
-            // removes done items after 3 days
+            // deletes done items after 3 days
             if (now - snapshot.timedone > 86400 * 3) {
               this.deleteItem(snapshot);
             }
