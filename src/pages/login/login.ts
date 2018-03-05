@@ -15,9 +15,6 @@ import firebase from "firebase";
 })
 export class LoginPage {
 
-  // userProfile = MockUserData;
-  public userProfile;
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -25,35 +22,37 @@ export class LoginPage {
     private database: AngularFireDatabase,
     private auth: AuthService,
   ) {
-    firebase.auth().onAuthStateChanged((user) => {
-      this.userProfile = this.auth.userProfile;
-    });
+
   }
 
   ngOnInit() {
-    this.userProfile = this.auth.userProfile;
-  }
-
-  ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
   // TODO: error message plugin_not_found also fix plugman problem ffs -> plugins/cordova-universal-links-plugin/hooks/lib/ios/xcodePreferences.js
   login() {
-    this.facebook.login(["email"]).then(response => {
-      const credential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
-      this.auth.signInWithFacebook(credential);
-      this.userProfile = this.auth.userProfile;
-      location.reload();
-    }).catch((error) => { console.log(error) });
+    this.auth.signInWithFacebook();
+    // location.reload();
   }
 
   logout() {
     this.auth.signOut();
   }
 
+  isAuthed() {
+    return this.auth.authenticated;
+  }
+
+  getUserDetails() {
+    let userDetails = this.auth.currentUserDetails;
+    return {
+      name: this.auth.currentUserName,
+      image: userDetails.photoURL
+    }
+  }
+
   testButton() {
-    alert(JSON.stringify(this.auth.userProfile));
+    alert(JSON.stringify(this.auth.currentUserDetails));
   }
 
 }
