@@ -6,11 +6,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Keyboard } from 'ionic-native';
 import { Facebook } from '@ionic-native/facebook';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { AuthService } from "../services/auth.service"
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 
 
 export const firebaseConfig = {
@@ -24,7 +27,8 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    LoginPage,
+    HomePage,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +40,7 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
     HomePage,
   ],
   providers: [
@@ -43,7 +48,9 @@ export const firebaseConfig = {
     SplashScreen,
     Keyboard,
     Facebook,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthService,
+    AngularFireAuthModule
   ]
 })
 export class AppModule { }

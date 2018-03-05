@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
+import firebase from "firebase";
 // import { ListItem } from "../../models/list-item/list-item.interface";
 
 @Component({
@@ -95,21 +96,6 @@ export class HomePage {
           });
         })
     }
-  }
-
-
-  facebookLogin(): Promise<any> {
-    return this.facebook.login(['email'])
-      .then(response => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider
-          .credential(response.authResponse.accessToken);
-
-        firebase.auth().signInWithCredential(facebookCredential)
-          .then(success => {
-            console.log("Firebase success: " + JSON.stringify(success));
-          });
-
-      }).catch((error) => { console.log(error) });
   }
 
 }

@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="userProfile" (click)="logout()">
+        Sign Out
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngIf="userProfile">
+    <ion-card-header>
+      Signed in as {{ userProfile.displayName }}
+    </ion-card-header>
+    <ion-card-content>
+      <img src={{userProfile.photoURL}}/>
+    </ion-card-content>
+  </ion-card>
+
+  <button block padding ion-button color="secondary" *ngIf="!userProfile" (click)="login()">Facebook Login</button>
+  <button block padding ion-button color="secondary" *ngIf="userProfile">Create House</button>
+  <button block padding ion-button color="secondary" *ngIf="userProfile">Join House</button>
+  <button block padding ion-button (click)="testButton()">TEST</button>
+</ion-content>
