@@ -3,20 +3,23 @@ import { Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard, StatusBar } from 'ionic-native';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 // import firebase from 'firebase';
-
+import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { CreatePage } from '../pages/create/create';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any;
 
   constructor(
     platform: Platform,
     splashScreen: SplashScreen,
-    private auth: AuthService
+    private auth: AuthService,
+    private user: UserService
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -24,6 +27,15 @@ export class MyApp {
       Keyboard.disableScroll(true);
       StatusBar.styleDefault();
       splashScreen.hide();
+      this.user.retrieveUser().subscribe(data => {
+        if (!data.houseId) {
+          console.log('New user');
+          this.rootPage = LoginPage;
+        } else {
+          console.log('User has list');
+          this.rootPage = TabsPage;
+        }
+      });
     });
 
 

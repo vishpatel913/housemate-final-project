@@ -3,6 +3,8 @@ import * as firebase from 'firebase';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { Facebook } from '@ionic-native/facebook';
 
+import { Platform } from 'ionic-angular';
+import MockUserData from '../../mock-user-data.json';
 
 @Injectable()
 export class AuthService {
@@ -10,6 +12,7 @@ export class AuthService {
   userDetails: firebase.User = null;
 
   constructor(
+    platform: Platform,
     public facebook: Facebook,
     private database: AngularFireDatabase,
   ) {
@@ -42,21 +45,29 @@ export class AuthService {
     return this.authenticated ? this.userDetails.displayName : 'Guest';
   }
 
+  // Returns current user photo url
+  get currentUserPhotoUrl(): string {
+    return this.authenticated ? this.userDetails.photoURL : '';
+  }
+
   signInWithFacebook() {
     console.log('Sign in with Facebook');
-    this.facebook.login(["email"]).then(response => {
+    return this.facebook.login(["email"]).then(response => {
       const credential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
       firebase.auth().signInWithCredential(credential).then(user => {
         this.userDetails = user;
       })
-    }).catch((error) => { console.log(error) });
+    }).catch((error) => {
+      console.log(error) ;
+      if (error == 'cordova_not_available') this.userDetails = MockUserData;
+    });
     // TODO: will need loading screen/trick for delay
   }
 
   signOut() {
     firebase.auth().signOut().then(() => {
       this.userDetails = null;
-      alert('Sign-out successful');
+      console.log('Sign-out successful');
     }).catch(error => {
       console.log(error);
     });

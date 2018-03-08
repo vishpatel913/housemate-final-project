@@ -10,7 +10,7 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 export class ItemModal {
 
   itemListRef$: AngularFireList<any>;
-  todo = this.navParams.get('data'); // = { id, text, new } 
+  todo = this.navParams.get('data'); // = { id, text, new, createdBy, houseId }
 
   constructor(
     public navCtrl: NavController,
@@ -18,7 +18,7 @@ export class ItemModal {
     public navParams: NavParams,
     private database: AngularFireDatabase,
   ) {
-    this.itemListRef$ = this.database.list<any>('/itemlist');
+    this.itemListRef$ = this.database.list<any>(`/houses/${this.todo.houseId}/items`);
   }
 
   ionViewDidLoad() {
@@ -40,13 +40,14 @@ export class ItemModal {
       id: newItemRef.key,
       text: this.todo.text,
       timecreated: Math.floor(Date.now() / 1000),
-      done: false
+      done: false,
+      createdBy: this.todo.createdBy
     });
     this.closeModal();
   }
 
   editItem() {
-    this.database.object('/itemlist/' + this.todo.id)
+    this.database.object(`/houses/${this.todo.houseId}/items/${this.todo.id}`)
       .update({
         text: this.todo.text,
         timecreated: Math.floor(Date.now() / 1000),

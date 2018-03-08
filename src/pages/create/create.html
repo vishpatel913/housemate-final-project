@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create House</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form (ngSubmit)="createHouse()">
+    <ion-item>
+      <ion-label color="secondary" stacked>House Name</ion-label>
+      <ion-input color="secondary" type="text" placeholder="Name your house" [(ngModel)]="house.name" name="name"></ion-input>
+    </ion-item>
+
+    <button margin ion-button type="submit" color="secondary">
+      Send
+    </button>
+  </form>
+
+</ion-content>

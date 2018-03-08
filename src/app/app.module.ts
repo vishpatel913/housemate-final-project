@@ -10,10 +10,13 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AuthService } from "../services/auth.service"
+import { UserService } from "../services/user.service"
 
 import { MyApp } from './app.component';
+import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { CreatePage } from '../pages/create/create';
 
 
 export const firebaseConfig = {
@@ -28,6 +31,8 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
+    CreatePage,
+    TabsPage,
     HomePage,
   ],
   imports: [
@@ -41,6 +46,8 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     LoginPage,
+    CreatePage,
+    TabsPage,
     HomePage,
   ],
   providers: [
@@ -50,6 +57,7 @@ export const firebaseConfig = {
     Facebook,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
+    UserService,
     AngularFireAuthModule
   ]
 })

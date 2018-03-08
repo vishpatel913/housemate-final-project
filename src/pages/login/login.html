@@ -24,7 +24,6 @@
   </ion-card>
 
   <button block padding ion-button color="secondary" *ngIf="!isAuthed()" (click)="login()">Facebook Login</button>
-  <button block padding ion-button color="secondary" *ngIf="isAuthed()">Create House</button>
-  <button block padding ion-button color="secondary" *ngIf="isAuthed()">Join House</button>
-  <button block padding ion-button (click)="testButton()">TEST</button>
+  <button block padding ion-button color="secondary" *ngIf="isAuthed()" (click)="create()">Create House</button>
+  <button block padding ion-button color="secondary" *ngIf="isAuthed()" (click)="join()">Join House</button>
 </ion-content>
