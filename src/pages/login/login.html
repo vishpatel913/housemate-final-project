@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+    <ion-buttons end>
+      <button padding ion-button icon-only *ngIf="isAuthed()" (click)="logout()">
+        Sign Out
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngIf="isAuthed()">
+    <ion-card-header>
+      Signed in as {{ getUserDetails().name }}
+    </ion-card-header>
+    <ion-card-content>
+      <img src={{getUserDetails().image}}/>
+    </ion-card-content>
+  </ion-card>
+
+  <button block padding ion-button color="secondary" *ngIf="!isAuthed()" (click)="login()">Facebook Login</button>
+  <button block padding ion-button color="secondary" *ngIf="isAuthed()" (click)="create()">Create House</button>
+  <button block padding ion-button color="secondary" *ngIf="isAuthed()" (click)="join()">Join House</button>
+</ion-content>

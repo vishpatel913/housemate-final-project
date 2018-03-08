@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
-// import { ListItem } from "../../models/list-item/list-item.interface";
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from "angularfire2/database";
+import firebase from "firebase";
+import { UserService } from "../../services/user.service"
+import { AuthService } from "../../services/auth.service"
 
 @Component({
   selector: 'page-home',
@@ -11,8 +13,11 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 })
 export class HomePage {
 
-  itemListRef$: AngularFireList<any>;
-  // listItems;
+  // itemListRef$: AngularFireList<any>;
+  houseRef: AngularFireObject<any>;
+  houseId;
+  houseName;
+  userRef;
   todoItems;
   doneItems;
 
@@ -22,14 +27,24 @@ export class HomePage {
     public facebook: Facebook,
     private modalCtrl: ModalController,
     private database: AngularFireDatabase,
+    private user: UserService,
+    private auth: AuthService,
   ) {
-    this.itemListRef$ = this.database.list<any>('/itemlist');
+
   }
 
   ngOnInit() {
-    this.clearOldItems();
-    this.todoItems = this.getItems(false).valueChanges();
-    this.doneItems = this.getItems(true).valueChanges();
+    // this.clearOldItems();
+    this.user.retrieveUser().subscribe(user => {
+      this.houseId = user.houseId;
+      this.houseRef = this.database.object<any>('/houses/' + this.houseId).valueChanges();
+      this.houseRef.subscribe(house => {
+        this.houseName = house.name;
+        this.todoItems = this.getItems(false).valueChanges();
+        this.doneItems = this.getItems(true).valueChanges();
+        // this.itemListRef$ = this.database.list<any>(`/houses/${this.houseId}/items`);
+      });
+    });
   }
 
   ionViewDidLoad() {
@@ -37,7 +52,7 @@ export class HomePage {
   }
 
   getItems(done: boolean) {
-    return this.database.list<any>('/itemlist', ref => ref.orderByChild('done').equalTo(done));
+    return this.database.list<any>(`/houses/${this.houseId}/items`, ref => ref.orderByChild('done').equalTo(done));
   }
 
   openAddItem() {
@@ -48,7 +63,9 @@ export class HomePage {
     const addModalData = {
       id: "",
       text: "",
-      new: true
+      new: true,
+      createdBy: this.user.userId,
+      houseId: this.houseId
     };
     const addItemModal: Modal = this.modalCtrl.create('ItemModal', { data: addModalData }, addModalOptions);
     addItemModal.present();
@@ -62,20 +79,22 @@ export class HomePage {
     const editModalData = {
       id: item.id,
       text: item.text,
-      new: false
+      new: false,
+      createdBy: this.user.userId,
+      houseId: this.houseId
     };
     const editItemModal: Modal = this.modalCtrl.create('ItemModal', { data: editModalData }, editModalOptions);
     editItemModal.present();
   }
 
   deleteItem(item) {
-    this.database.object('/itemlist/' + item.id)
+    this.database.object<any>(`/houses/${this.houseId}/items/${item.id}`)
       .remove();
   }
 
   toggleDone(item: any) {
     let timestamp = !item.done ? Math.floor(Date.now() / 1000) : item.timecreated;
-    this.database.object('/itemlist/' + item.id)
+    this.database.object<any>(`/houses/${this.houseId}/items/${item.id}`)
       .update({
         text: item.text,
         done: !item.done,
@@ -96,21 +115,6 @@ export class HomePage {
           });
         })
     }
-  }
-
-
-  facebookLogin(): Promise<any> {
-    return this.facebook.login(['email'])
-      .then(response => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider
-          .credential(response.authResponse.accessToken);
-
-        firebase.auth().signInWithCredential(facebookCredential)
-          .then(success => {
-            console.log("Firebase success: " + JSON.stringify(success));
-          });
-
-      }).catch((error) => { console.log(error) });
   }
 
 }
