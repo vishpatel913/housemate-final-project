@@ -27,22 +27,18 @@ export class LoginPage {
   }
 
   ngOnInit() {
-    this.user.retrieveUser().subscribe(user => {
-      if (!!user.houseId) {
-        this.navCtrl.setRoot(TabsPage);
-      }
-    });
+
   }
 
   // TODO: error message plugin_not_found also fix plugman problem ffs -> plugins/cordova-universal-links-plugin/hooks/lib/ios/xcodePreferences.js
   login() {
     this.auth.signInWithFacebook().then(() => {
-      this.user.addCurrentUser();
+      // this.auth.waitForAuth().then(() => {  
+      //   this.user.addCurrentUser();
+      // });
       this.user.retrieveUser().subscribe(user => {
         if (!!user.houseId) {
           this.navCtrl.setRoot(TabsPage);
-        } else {
-          this.house = true;
         }
       });
     });

@@ -20,6 +20,8 @@ export class HomePage {
   userRef;
   todoItems;
   doneItems;
+  showDoneItems: boolean = false;
+  toggleButtonText: string = "Show Completed Items";
 
   constructor(
     public navCtrl: NavController,
@@ -37,8 +39,8 @@ export class HomePage {
     // this.clearOldItems();
     this.user.retrieveUser().subscribe(user => {
       this.houseId = user.houseId;
-      this.houseRef = this.database.object<any>('/houses/' + this.houseId).valueChanges();
-      this.houseRef.subscribe(house => {
+      this.database.object<any>('/houses/' + this.houseId)
+      .valueChanges().subscribe(house => {
         this.houseName = house.name;
         this.todoItems = this.getItems(false).valueChanges();
         this.doneItems = this.getItems(true).valueChanges();
@@ -100,6 +102,11 @@ export class HomePage {
         done: !item.done,
         timedone: timestamp
       });
+  }
+
+  toggleShowDone() {
+    this.showDoneItems = !this.showDoneItems;
+    this.toggleButtonText = this.showDoneItems ? "Completed Items" : "Show Completed Items"
   }
 
   clearOldItems() {

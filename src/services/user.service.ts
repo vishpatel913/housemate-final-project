@@ -8,7 +8,7 @@ import { AuthService } from "./auth.service"
 @Injectable()
 export class UserService {
 
-  private user: any;
+  private user;
 
   constructor(
     private database: AngularFireDatabase,
@@ -21,25 +21,12 @@ export class UserService {
     return this.auth.currentUserId;
   }
 
-  get houseId() {
-    return this.userHouseId;
-  }
-
-  retrieveUser() {
-    this.user = this.database.object('/users/' + this.userId)
-      .valueChanges()
-      .publishReplay(1)
-      .refCount();
+  retrieveUser(id: string = this.userId) {
+    this.user = this.database.object('/users/' + id)
+      .valueChanges();
+      // .publishReplay(1)
+      // .refCount();
     return this.user;
-  }
-
-  addCurrentUser() {
-    const newUserRef = this.database.object(`/users/${this.userId}/`);
-    newUserRef.update({
-      id: this.userId,
-      name: this.auth.currentUserName,
-      photoURL: this.auth.currentUserPhotoUrl,
-    });
   }
 
 }

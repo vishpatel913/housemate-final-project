@@ -4,7 +4,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard, StatusBar } from 'ionic-native';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-// import firebase from 'firebase';
+import firebase from 'firebase';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -21,21 +21,31 @@ export class MyApp {
     private auth: AuthService,
     private user: UserService
   ) {
+    firebase.auth().onAuthStateChanged(userAuth => {
+      this.user.retrieveUser(userAuth.uid).subscribe(userData => {
+        if (userData !== null) {
+          if (!!userData.houseId) {
+            console.log('User has list');
+            this.rootPage = TabsPage;
+          } else {
+            this.rootPage = LoginPage;
+          }
+        } else {
+          this.rootPage = LoginPage;
+        }
+      });
+    });
+
+    if (!platform.is('cordova')) {
+      this.rootPage = TabsPage;
+    }
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       Keyboard.disableScroll(true);
       StatusBar.styleDefault();
       splashScreen.hide();
-      this.user.retrieveUser().subscribe(data => {
-        if (!data.houseId) {
-          console.log('New user');
-          this.rootPage = LoginPage;
-        } else {
-          console.log('User has list');
-          this.rootPage = TabsPage;
-        }
-      });
     });
 
 

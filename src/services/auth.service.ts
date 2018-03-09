@@ -4,7 +4,8 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { Facebook } from '@ionic-native/facebook';
 
 import { Platform } from 'ionic-angular';
-import MockUserData from '../../mock-user-data.json';
+import * as MockUserData from '../../mock-user-data.json';
+
 
 @Injectable()
 export class AuthService {
@@ -20,9 +21,11 @@ export class AuthService {
       if (user) {
         this.userDetails = user;
       } else {
-        this.userDetails = null;
+        this.userDetails = platform.is('cordova') ? null : MockUserData;
       }
     });
+    // if (!platform.is('cordova')) this.userDetails = MockUserData;
+
   }
 
   // Returns true if user is logged in
@@ -50,16 +53,21 @@ export class AuthService {
     return this.authenticated ? this.userDetails.photoURL : '';
   }
 
+  waitForAuth() {
+    return new Promise((resolve, reject) => resolve(this.authenticated));
+  }
+
   signInWithFacebook() {
     console.log('Sign in with Facebook');
     return this.facebook.login(["email"]).then(response => {
       const credential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
-      firebase.auth().signInWithCredential(credential).then(user => {
-        this.userDetails = user;
+      firebase.auth().signInWithCredential(credential).then(userData => {
+        this.userDetails = userData;
+        this.addCurrentUser();
       })
     }).catch((error) => {
       console.log(error) ;
-      if (error == 'cordova_not_available') this.userDetails = MockUserData;
+      // if (error == 'cordova_not_available') this.userDetails = MockUserData;
     });
     // TODO: will need loading screen/trick for delay
   }
@@ -70,6 +78,15 @@ export class AuthService {
       console.log('Sign-out successful');
     }).catch(error => {
       console.log(error);
+    });
+  }
+
+  addCurrentUser() {
+    const newUserRef = this.database.object(`/users/${this.currentUserId}/`);
+    newUserRef.update({
+      id: this.currentUserId,
+      name: this.currentUserName,
+      photoURL: this.currentUserPhotoUrl,
     });
   }
 
