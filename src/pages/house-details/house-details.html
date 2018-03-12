@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{houseName}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addUser()">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- <ion-img height="150" width="100%" src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/23622321_1740508699315744_4333475097649854190_n.jpg?oh=292934048a8ced5efdc01ab831191916&oe=5B443FFC"></ion-img> -->
+  <ion-card>
+    <ion-card-header>House Details</ion-card-header>
+    <ion-card-content>
+      <ion-item text-wrap *ngFor="let info of (houseDetailsRef | async)">
+        {{info.text}}
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary" (click)="openDetailsModal()">
+      <ion-icon name="create"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>
