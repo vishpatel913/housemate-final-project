@@ -14,7 +14,7 @@ import { TabsPage } from "../tabs/tabs";
 export class CreatePage {
 
   houseListRef: AngularFireList<any>;
-  house = { name: '' }
+  house = { name: '', details: '' }
 
   constructor(
     public navCtrl: NavController,
@@ -31,17 +31,35 @@ export class CreatePage {
 
   createHouse() {
     const newHouseRef = this.houseListRef.push({});
+    const userId = this.auth.currentUserId;
     newHouseRef.set({
       id: newHouseRef.key,
       name: this.house.name,
       // image: '',
+    }).then(_ => {
+      this.setHouseDetails(newHouseRef.key);
+      const newUserRef = this.database.object(`/houses/${newHouseRef.key}/users/${userId}`);
+      newUserRef.update({
+        id: userId,
+        name: this.auth.currentUserName,
+      });
     });
-    const userId = this.auth.currentUserId;
     this.database.object<any>(`/users/${userId}`)
       .update({
         houseId: newHouseRef.key
       });
     this.navCtrl.setRoot(TabsPage);
+  }
+
+  setHouseDetails(id: string) {
+    const houseDetails = this.database.list<any>(`/houses/${id}/details`);
+    const details = this.house.details.split('\n');
+    for (let detail of details) {
+      const newDetailRef = houseDetails.push({});
+      newDetailRef.set({
+        text: detail
+      });
+    }
   }
 
 }

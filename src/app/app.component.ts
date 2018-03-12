@@ -7,8 +7,11 @@ import { UserService } from '../services/user.service';
 import firebase from 'firebase';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
+import { AddUserPage } from '../pages/add-user/add-user';
 import { LoginPage } from '../pages/login/login';
 import { CreatePage } from '../pages/create/create';
+import { HouseDetailsPage } from '../pages/house-details/house-details';
+
 @Component({
   templateUrl: 'app.html'
 })

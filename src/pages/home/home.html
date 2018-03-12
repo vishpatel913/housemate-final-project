@@ -5,7 +5,7 @@
       {{houseName}}
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="addUserToList()">
+      <button ion-button icon-only (click)="addUser()">
         <ion-icon name="person-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -36,7 +36,7 @@
     </ion-item-sliding>
   </ion-list>
 
-  <button ion-button block padding color="secondary" (click)="toggleShowDone()">{{toggleButtonText}}</button>
+  <button *ngIf="doneItemsBool" ion-button block padding color="secondary" (click)="toggleShowDone()">{{toggleButtonText}}</button>
 
   <ion-list no-lines class="todo-list" *ngIf="showDoneItems">
     <ion-item-sliding *ngFor="let doneItem of (doneItems | async)">

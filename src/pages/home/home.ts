@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from "angularfire2/database";
 import firebase from "firebase";
+import { AddUserPage } from "../add-user/add-user"
 import { UserService } from "../../services/user.service"
 import { AuthService } from "../../services/auth.service"
 
@@ -20,12 +21,12 @@ export class HomePage {
   userRef;
   todoItems;
   doneItems;
+  doneItemsBool: boolean;
   showDoneItems: boolean = false;
-  toggleButtonText: string = "Show Completed Items";
+  toggleButtonText: string = "Show Completed";
 
   constructor(
     public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public facebook: Facebook,
     private modalCtrl: ModalController,
     private database: AngularFireDatabase,
@@ -36,7 +37,6 @@ export class HomePage {
   }
 
   ngOnInit() {
-    // this.clearOldItems();
     this.user.retrieveUser().subscribe(user => {
       this.houseId = user.houseId;
       this.database.object<any>('/houses/' + this.houseId)
@@ -44,7 +44,12 @@ export class HomePage {
         this.houseName = house.name;
         this.todoItems = this.getItems(false).valueChanges();
         this.doneItems = this.getItems(true).valueChanges();
-        // this.itemListRef$ = this.database.list<any>(`/houses/${this.houseId}/items`);
+        this.doneItems.subscribe(data => {
+          if (data.length > 0) {
+            this.doneItemsBool = true;
+            this.clearOldItems();
+          } else this.doneItemsBool = false;
+        })
       });
     });
   }
@@ -106,22 +111,24 @@ export class HomePage {
 
   toggleShowDone() {
     this.showDoneItems = !this.showDoneItems;
-    this.toggleButtonText = this.showDoneItems ? "Completed Items" : "Show Completed Items"
+    this.toggleButtonText = this.showDoneItems ? "Completed" : "Show Completed"
+  }
+
+  addUser() {
+    this.navCtrl.push(AddUserPage);
   }
 
   clearOldItems() {
     let now = Math.floor(Date.now() / 1000);
-    if (this.getItems(true).valueChanges()) {
-      this.getItems(true).valueChanges()
-        .subscribe(snapshots => {
-          snapshots.forEach(snapshot => {
-            // deletes done items after 3 days
-            if (now - snapshot.timedone > 86400 * 3) {
-              this.deleteItem(snapshot);
-            }
-          });
-        })
-    }
+    this.getItems(true).valueChanges()
+      .subscribe(snapshots => {
+        snapshots.forEach(snapshot => {
+          // deletes done items after 3 days
+          if (now - snapshot.timedone > 86400 * 3) {
+            this.deleteItem(snapshot);
+          }
+        });
+      })
   }
 
 }

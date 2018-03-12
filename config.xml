@@ -104,4 +104,7 @@
         <variable name="APP_ID" value="2003611086520274" />
         <variable name="APP_NAME" value="ProjectHousemate" />
     </plugin>
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.2">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+    </plugin>
 </widget>

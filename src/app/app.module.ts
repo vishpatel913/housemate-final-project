@@ -9,14 +9,19 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 import { AuthService } from "../services/auth.service"
 import { UserService } from "../services/user.service"
 
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
+import { AddUserPage } from '../pages/add-user/add-user';
 import { LoginPage } from '../pages/login/login';
 import { CreatePage } from '../pages/create/create';
+import { HouseDetailsPage } from '../pages/house-details/house-details';
 
 
 export const firebaseConfig = {
@@ -34,13 +39,16 @@ export const firebaseConfig = {
     CreatePage,
     TabsPage,
     HomePage,
+    AddUserPage,
+    HouseDetailsPage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    NgxQRCodeModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,6 +57,8 @@ export const firebaseConfig = {
     CreatePage,
     TabsPage,
     HomePage,
+    AddUserPage,
+    HouseDetailsPage,
   ],
   providers: [
     StatusBar,
@@ -58,7 +68,8 @@ export const firebaseConfig = {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     UserService,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    BarcodeScanner
   ]
 })
 export class AppModule { }

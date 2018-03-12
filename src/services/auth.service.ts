@@ -4,13 +4,14 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { Facebook } from '@ionic-native/facebook';
 
 import { Platform } from 'ionic-angular';
-import * as MockUserData from '../../mock-user-data.json';
+import { MockUserData } from './mock-user-data';
 
 
 @Injectable()
 export class AuthService {
 
-  userDetails: firebase.User = null;
+  // userDetails: firebase.User = null;
+  userDetails = null;
 
   constructor(
     platform: Platform,
@@ -21,11 +22,11 @@ export class AuthService {
       if (user) {
         this.userDetails = user;
       } else {
+        this.userDetails = null;
         this.userDetails = platform.is('cordova') ? null : MockUserData;
+        // console.log(MockUserData);
       }
     });
-    // if (!platform.is('cordova')) this.userDetails = MockUserData;
-
   }
 
   // Returns true if user is logged in
