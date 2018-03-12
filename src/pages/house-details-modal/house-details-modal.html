@@ -15,7 +15,7 @@
   <form (ngSubmit)="updateHouseDetails()">
     <ion-item>
       <ion-label color="secondary" stacked>House Details</ion-label>
-      <ion-textarea color="secondary" type="text" rows="7" placeholder="Add any house details, for example, WiFi password, Landlord's phone number, bill details, etc" [(ngModel)]="house.details" name="text">{{house.details}}</ion-textarea>
+      <ion-textarea color="secondary" type="text" rows="5" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="text">{{house.details}}</ion-textarea>
     </ion-item>
     <button ion-fab class="add-button" type="submit" color="secondary">
       <ion-icon name="send"></ion-icon>

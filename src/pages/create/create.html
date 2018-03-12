@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Create House</ion-title>
+    <ion-title>Create New House</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,11 +16,11 @@
     </ion-item>
     <ion-item>
       <ion-label color="secondary" stacked>House Details</ion-label>
-      <ion-textarea color="secondary" rows="5" type="text" placeholder="Add any house details, for example, WiFi password, Landlord's phone number, bill details, etc" [(ngModel)]="house.details" name="details"></ion-textarea>
+      <ion-textarea color="secondary" rows="5" type="text" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="details"></ion-textarea>
     </ion-item>
 
     <button margin ion-button type="submit" color="secondary">
-      Send
+      Create
     </button>
   </form>
 

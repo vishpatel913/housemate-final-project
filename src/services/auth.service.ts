@@ -24,7 +24,6 @@ export class AuthService {
       } else {
         this.userDetails = null;
         this.userDetails = platform.is('cordova') ? null : MockUserData;
-        // console.log(MockUserData);
       }
     });
   }

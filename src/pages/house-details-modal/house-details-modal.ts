@@ -28,7 +28,6 @@ export class HouseDetailsModal {
   updateHouseDetails() {
     const houseDetails = this.database.list<any>(`/houses/${this.house.id}/details`);
     const details = this.house.details.split('\n');
-    console.log(details);
     houseDetails.remove();
     for (let detail of details) {
       const newDetailRef = houseDetails.push({});
