@@ -1,5 +1,32 @@
 page-create {
-  form {
-    overflow-y: auto;
+  .content {
+    background-color: color($colors, background);
+  }
+
+  .logo {
+    display: block;
+    margin: 20% auto 10%;
+
+    &-image {
+      display: block;
+      height: auto;
+      width: 35%;
+      margin: 20px auto;
+    }
+
+    &-text {
+      text-align: center;
+      margin: 20px;
+    }
+  }
+
+  .create-form {
+    &-field {
+      margin: auto;
+      padding-left: 12px;
+      padding-right: 12px;
+      width: 80%;
+      background: none;
+    }
   }
 }

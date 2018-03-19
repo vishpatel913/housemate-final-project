@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { HouseDetailsPage } from '../house-details/house-details';
 import { CreatePage } from '../create/create';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -15,9 +16,10 @@ import { CreatePage } from '../create/create';
 export class TabsPage {
 	tabHomeRoot: any = HomePage;
 	tabHouseDetailsRoot: any = HouseDetailsPage;
-	tabTestRoot: any = CreatePage;
+	tabTestRoot1: any = CreatePage;
+	tabTestRoot2: any = LoginPage;
 
 	constructor() {
-		
+
 	}
 }

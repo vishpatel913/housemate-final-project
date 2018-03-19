@@ -5,12 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Keyboard } from 'ionic-native';
 import { Facebook } from '@ionic-native/facebook';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { SuperTabsModule } from 'ionic2-super-tabs';
 
 import { AuthService } from "../services/auth.service"
 import { UserService } from "../services/user.service"
@@ -49,6 +51,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgxQRCodeModule,
+    SuperTabsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -13,6 +13,10 @@
 
 <ion-content padding class="wrapper">
   <form (ngSubmit)="updateHouseDetails()">
+    <!-- <ion-item>
+      <ion-label color="secondary" stacked>House Name</ion-label>
+      <ion-input color="secondary" type="text" [(ngModel)]="house.name" name="text">{{house.name}}</ion-input>
+    </ion-item> -->
     <ion-item>
       <ion-label color="secondary" stacked>House Details</ion-label>
       <ion-textarea color="secondary" type="text" rows="5" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="text">{{house.details}}</ion-textarea>
