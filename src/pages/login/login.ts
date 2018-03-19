@@ -48,7 +48,7 @@ export class LoginPage {
   }
 
   create() {
-    this.navCtrl.push(CreatePage);
+    this.navCtrl.push(CreatePage, {}, { animate: false });
     console.log('Create page');
   }
 
@@ -58,18 +58,18 @@ export class LoginPage {
     this.barcodeScanner.scan().then(barcodeData => {
       const houseId = barcodeData.text;
       this.database.object('/users/' + this.user.userId)
-      .update({
-        houseId: houseId,
-      })
-      .then(() => {
-        const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.userId}`);
-        newUserRef.update({
-          id: this.user.userId,
+        .update({
+          houseId: houseId,
+        })
+        .then(() => {
+          const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.userId}`);
+          newUserRef.update({
+            id: this.user.userId,
+          });
+          this.navCtrl.setRoot(TabsPage);
         });
-        this.navCtrl.setRoot(TabsPage);
-      });
     }, (err) => {
-        alert('Error: ' + err);
+      alert('Error: ' + err);
     });
   }
 

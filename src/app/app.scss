@@ -14,3 +14,17 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.button {
+  &-primary {
+    margin: 16px auto;
+    max-width: fit-content;
+    min-width: 200px;
+  }
+  &-back {
+    margin-top: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

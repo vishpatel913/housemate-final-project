@@ -25,23 +25,21 @@ export class MyApp {
     private user: UserService
   ) {
     firebase.auth().onAuthStateChanged(userAuth => {
-      this.user.retrieveUser(userAuth.uid).subscribe(userData => {
-        if (userData !== null) {
+      if (userAuth) {
+        this.user.retrieveUser(userAuth.uid).subscribe(userData => {
           if (!!userData.houseId) {
             console.log('User has list');
             this.rootPage = TabsPage;
           } else {
             this.rootPage = LoginPage;
           }
-        } else {
-          this.rootPage = LoginPage;
-        }
-      });
+        });
+      } else {
+        if (!platform.is('cordova')) this.rootPage = TabsPage;
+        else this.rootPage = LoginPage;
+      }
     });
 
-    if (!platform.is('cordova')) {
-      this.rootPage = TabsPage;
-    }
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

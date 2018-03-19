@@ -1,29 +1,28 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-    <ion-buttons end>
-      <button padding ion-button icon-only *ngIf="isAuthed()" (click)="logout()">
-        Sign Out
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
 
-  <ion-card *ngIf="isAuthed()">
-    <ion-card-header>
-      Signed in as {{ getUserDetails().name }}
-    </ion-card-header>
-    <ion-card-content>
-      <img src={{getUserDetails().image}}/>
-    </ion-card-content>
-  </ion-card>
+  <div class="logo">
+    <img class="logo-image" src="https://www.shareicon.net/data/2017/01/24/875047_snake_512x512.png" />
+    <h1 class="logo-text">The Perfect Housemate</h1>
+  </div>
 
-  <button block padding ion-button color="secondary" *ngIf="!isAuthed()" (click)="login()">Facebook Login</button>
-  <button block padding ion-button color="secondary" *ngIf="isAuthed()" (click)="create()">Create House</button>
-  <button block padding ion-button color="secondary" *ngIf="isAuthed()" (click)="scanHouseCode()">Join House</button>
+  <button ion-button block icon-start class="button-primary" color="facebook" *ngIf="!isAuthed()" (click)="login()">
+    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>
+    Facebook Login
+  </button>
+  <button ion-button block class="button-primary" color="secondary" *ngIf="isAuthed()" (click)="create()">Create House</button>
+  <button ion-button block class="button-primary" color="secondary" *ngIf="isAuthed()" (click)="scanHouseCode()">Join House</button>
+  <div class="footer">
+    <div *ngIf="isAuthed()" class="footer-user">
+      <ion-avatar class="footer-user-image">
+        <img class="footer-user-image" src={{getUserDetails().image}}>
+      </ion-avatar>
+      <div class="footer-user-text">
+        <span class="user-title">Signed in as</span>
+        <span class="user-name">{{ getUserDetails().name }}</span>
+      </div>
+    </div>
+    <button ion-button item-right outline small class="button-signout" *ngIf="isAuthed()" (click)="logout()">
+      Sign Out
+    </button>
+  </div>
 </ion-content>

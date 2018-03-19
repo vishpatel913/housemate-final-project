@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 
@@ -12,6 +12,7 @@ export class ItemModal {
   itemListRef$: AngularFireList<any>;
   todo = this.navParams.get('data'); // = { id, text, new, createdBy, houseId }
 
+  @ViewChild('task') taskInput ;
   constructor(
     public navCtrl: NavController,
     public viewCtrl : ViewController,
@@ -22,6 +23,7 @@ export class ItemModal {
   }
 
   ionViewDidLoad() {
+    this.taskInput.setFocus();
     const data = this.navParams.get('data');
     console.log(data);
   }

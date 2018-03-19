@@ -36,7 +36,7 @@
     </ion-item-sliding>
   </ion-list>
 
-  <button *ngIf="doneItemsBool" ion-button block padding color="secondary" (click)="toggleShowDone()">{{toggleButtonText}}</button>
+  <button ion-button block padding class="button-primary" color="secondary" *ngIf="doneItemsBool" (click)="toggleShowDone()">{{toggleButtonText}}</button>
 
   <ion-list no-lines class="todo-list" *ngIf="showDoneItems">
     <ion-item-sliding *ngFor="let doneItem of (doneItems | async)">

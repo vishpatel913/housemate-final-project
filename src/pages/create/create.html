@@ -1,25 +1,26 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Create New House</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
 
-  <form (ngSubmit)="createHouse()">
-    <ion-item>
+  <button ion-button icon-start clear class="button-back" (click)="goLogin()">
+    <ion-icon name="arrow-back"></ion-icon>
+    Back
+  </button>
+
+  <div class="logo">
+    <img class="logo-image" src="https://www.shareicon.net/data/2017/01/24/875047_snake_512x512.png" />
+    <!-- <h1 class="logo-text">The Perfect Housemate</h1> -->
+  </div>
+
+  <form class="create-form" (ngSubmit)="createHouse()">
+    <ion-item class="create-form-field">
       <ion-label color="secondary" stacked>House Name</ion-label>
       <ion-input color="secondary" type="text" placeholder="Name your house" [(ngModel)]="house.name" name="name"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item class="create-form-field">
       <ion-label color="secondary" stacked>House Details</ion-label>
       <ion-textarea color="secondary" rows="5" type="text" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="details"></ion-textarea>
     </ion-item>
 
-    <button margin ion-button type="submit" color="secondary">
+    <button ion-button block color="secondary" class="button-primary create-form-button" type="submit">
       Create
     </button>
   </form>
