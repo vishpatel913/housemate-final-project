@@ -11,8 +11,8 @@
   </button>
   <button ion-button block class="button-primary" color="secondary" *ngIf="isAuthed()" (click)="create()">Create House</button>
   <button ion-button block class="button-primary" color="secondary" *ngIf="isAuthed()" (click)="scanHouseCode()">Join House</button>
-  <div class="footer">
-    <div *ngIf="isAuthed()" class="footer-user">
+  <div class="footer" *ngIf="isAuthed()" >
+    <div class="footer-user">
       <ion-avatar class="footer-user-image">
         <img class="footer-user-image" src={{getUserDetails().image}}>
       </ion-avatar>
@@ -21,7 +21,7 @@
         <span class="user-name">{{ getUserDetails().name }}</span>
       </div>
     </div>
-    <button ion-button item-right outline small class="button-signout" *ngIf="isAuthed()" (click)="logout()">
+    <button ion-button item-right outline small class="button-signout"(click)="logout()">
       Sign Out
     </button>
   </div>

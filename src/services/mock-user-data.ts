@@ -1,6 +1,6 @@
 export const MockUserData = {
   "uid": "UkcZZLb6yIhQ4x4pByDu8daG70iH3",
-  "displayName": "Danny Brown",
+  "displayName": "Danny XXX Brown",
   "photoURL": "https://cdn.pastemagazine.com/www/articles/Danny%20Brown%20Aint%20It%20Funny%20Screengrab%20via%20Warp%20Square.jpg",
   "email": "test123@hotmail.co.uk",
   "emailVerified": false,

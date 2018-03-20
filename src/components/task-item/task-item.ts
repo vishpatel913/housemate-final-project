@@ -1,6 +1,6 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+import { AngularFireDatabase } from "angularfire2/database";
 import { TaskItem, CategoryObject } from '../../models/task-item/task-item.interface';
 import { Category } from '../../models/task-item/category.model';
 import { UserService } from '../../services/user.service';
@@ -25,14 +25,6 @@ export class TaskItemComponent {
   }
 
   ngOnInit() {
-    // console.log(this.task);
-    // this.user.retrieveUser(this.task.createdby).subscribe(user => {
-    //   let names = user.name.split(' ');
-    //   let lastName = names[names.length - 1]
-    //   let letters = lastName.split('');
-    //   // this.userName = names[0] + ' ' + letters[0] + '.';
-    //   this.userName = names[0] + ' ' + lastName;
-    // })
     this.category = Category[this.task.category];
   }
 
@@ -55,7 +47,7 @@ export class TaskItemComponent {
       id: this.task.id,
       text: this.task.text,
       category: this.task.category,
-      createdby: this.user.userId,
+      createdby: this.user.id,
       new: false,
       houseId: this.houseId,
     };

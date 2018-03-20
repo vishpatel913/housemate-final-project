@@ -1,6 +1,6 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
+import { AngularFireDatabase } from "angularfire2/database";
 
 @IonicPage()
 @Component({
@@ -26,15 +26,15 @@ export class HouseDetailsModal {
   }
 
   updateHouseDetails() {
-    const house = this.database.object<any>(`/houses/${this.house.id}`);
-    const houseDetails = this.database.list<any>(`/houses/${this.house.id}/details`);
+    const houseRef = this.database.object<any>(`/houses/${this.house.id}`);
+    const houseDetailsRef = this.database.list<any>(`/houses/${this.house.id}/details`);
     const details = this.house.details.split('\n');
-    house.update({
+    houseRef.update({
       name: this.house.name
     })
-    houseDetails.remove();
+    houseDetailsRef.remove();
     for (let detail of details) {
-      const newDetailRef = houseDetails.push({});
+      const newDetailRef = houseDetailsRef.push({});
       newDetailRef.set({
         text: detail
       });
@@ -43,11 +43,11 @@ export class HouseDetailsModal {
   }
 
   closeModal() {
-    const house = {
-      name: 'House Snake',
+    const houseData = {
+      name: 'Hazelwood Ave.',
       details: 'Buy beer'
     };
-    this.viewCtrl.dismiss(house);
+    this.viewCtrl.dismiss(houseData);
   }
 
 }

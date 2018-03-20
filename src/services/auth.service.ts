@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
+import { AngularFireDatabase } from "angularfire2/database";
 import { Facebook } from '@ionic-native/facebook';
 
 import { Platform } from 'ionic-angular';
@@ -10,8 +10,7 @@ import { MockUserData } from './mock-user-data';
 @Injectable()
 export class AuthService {
 
-  // userDetails: firebase.User = null;
-  userDetails = null;
+  userDetails: any = null;
 
   constructor(
     platform: Platform,
@@ -19,9 +18,10 @@ export class AuthService {
     private database: AngularFireDatabase,
   ) {
     firebase.auth().onAuthStateChanged(user => {
+      this.userDetails = user;
       if (user) {
-        this.userDetails = user;
       } else {
+        console.log('huh');
         this.userDetails = null;
         this.userDetails = platform.is('cordova') ? null : MockUserData;
       }
