@@ -1,3 +1,4 @@
+import { Keyboard } from 'ionic-native';
 import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
@@ -14,7 +15,7 @@ export class ItemModal {
   todo = this.navParams.get('data'); // = { id, text, createdby, category, new, houseId }
   categories;
 
-  @ViewChild('task') taskInput ;
+  @ViewChild('task') taskInput;
   constructor(
     public navCtrl: NavController,
     public viewCtrl : ViewController,
@@ -25,8 +26,11 @@ export class ItemModal {
     this.categories = CategoryArray;
   }
 
-  ionViewDidLoad() {
-    this.taskInput.setFocus();
+  ionViewDidEnter() {
+    setTimeout(() => {
+      Keyboard.show() // for android
+      this.taskInput.setFocus();
+    }, 150);
     const data = this.navParams.get('data');
     console.log(data);
   }
@@ -47,7 +51,7 @@ export class ItemModal {
       timecreated: Math.floor(Date.now() / 1000),
       done: false,
       createdby: this.todo.createdby,
-      category: this.todo.category
+      category: this.todo.category || 'general'
     });
     this.closeModal();
   }

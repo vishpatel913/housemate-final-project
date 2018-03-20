@@ -1,3 +1,4 @@
+// TODO: sort this out pls
 export const Category = {
   general: {
     key: 'general',
