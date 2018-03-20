@@ -28,6 +28,7 @@ export class MyApp {
       if (userAuth) {
         this.user.retrieveUser(userAuth.uid).subscribe(userData => {
           if (!!userData.houseId) {
+            this.user.houseId = userData.houseId;
             console.log('User has list');
             this.rootPage = TabsPage;
           } else {
@@ -35,7 +36,13 @@ export class MyApp {
           }
         });
       } else {
-        if (!platform.is('cordova')) this.rootPage = TabsPage;
+        // Code for testing on web
+        if (!platform.is('cordova')) {
+          this.user.retrieveUser().subscribe(userData => {
+            this.user.houseId = userData.houseId;
+            this.rootPage = TabsPage;
+          });
+        }
         else this.rootPage = LoginPage;
       }
     });

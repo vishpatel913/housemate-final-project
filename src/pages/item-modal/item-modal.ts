@@ -1,6 +1,8 @@
+import { Keyboard } from 'ionic-native';
 import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
+import { CategoryArray } from '../../models/task-item/category.model';
 
 @IonicPage()
 @Component({
@@ -10,9 +12,10 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 export class ItemModal {
 
   itemListRef$: AngularFireList<any>;
-  todo = this.navParams.get('data'); // = { id, text, new, createdBy, houseId }
+  todo = this.navParams.get('data'); // = { id, text, createdby, category, new, houseId }
+  categories;
 
-  @ViewChild('task') taskInput ;
+  @ViewChild('task') taskInput;
   constructor(
     public navCtrl: NavController,
     public viewCtrl : ViewController,
@@ -20,10 +23,14 @@ export class ItemModal {
     private database: AngularFireDatabase,
   ) {
     this.itemListRef$ = this.database.list<any>(`/houses/${this.todo.houseId}/items`);
+    this.categories = CategoryArray;
   }
 
-  ionViewDidLoad() {
-    this.taskInput.setFocus();
+  ionViewDidEnter() {
+    setTimeout(() => {
+      Keyboard.show() // for android
+      this.taskInput.setFocus();
+    }, 150);
     const data = this.navParams.get('data');
     console.log(data);
   }
@@ -43,7 +50,8 @@ export class ItemModal {
       text: this.todo.text,
       timecreated: Math.floor(Date.now() / 1000),
       done: false,
-      createdBy: this.todo.createdBy
+      createdby: this.todo.createdby,
+      category: this.todo.category || 'general'
     });
     this.closeModal();
   }
@@ -53,6 +61,7 @@ export class ItemModal {
       .update({
         text: this.todo.text,
         timecreated: Math.floor(Date.now() / 1000),
+        category: this.todo.category
       });
     this.closeModal();
   }

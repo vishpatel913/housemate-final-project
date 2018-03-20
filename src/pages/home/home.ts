@@ -60,6 +60,7 @@ export class HomePage {
 
   getItems(done: boolean) {
     return this.database.list<any>(`/houses/${this.houseId}/items`, ref => ref.orderByChild('done').equalTo(done));
+    // return this.database.list<any>(`/houses/${this.houseId}/items`);
   }
 
   openAddItem() {
@@ -71,7 +72,7 @@ export class HomePage {
       id: "",
       text: "",
       new: true,
-      createdBy: this.user.userId,
+      createdby: this.user.userId,
       houseId: this.houseId
     };
     const addItemModal: Modal = this.modalCtrl.create('ItemModal', { data: addModalData }, addModalOptions);
@@ -87,7 +88,7 @@ export class HomePage {
       id: item.id,
       text: item.text,
       new: false,
-      createdBy: this.user.userId,
+      createdby: this.user.userId,
       houseId: this.houseId
     };
     const editItemModal: Modal = this.modalCtrl.create('ItemModal', { data: editModalData }, editModalOptions);
