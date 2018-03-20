@@ -1,5 +1,5 @@
 import { Keyboard } from 'ionic-native';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { CategoryArray } from '../../models/task-item/category.model';
@@ -11,14 +11,14 @@ import { CategoryArray } from '../../models/task-item/category.model';
 })
 export class ItemModal {
 
+  @ViewChild('task') taskInput;
   itemListRef$: AngularFireList<any>;
   todo = this.navParams.get('data'); // = { id, text, createdby, category, new, houseId }
-  categories;
+  categories: Array;
 
-  @ViewChild('task') taskInput;
   constructor(
     public navCtrl: NavController,
-    public viewCtrl : ViewController,
+    public viewCtrl: ViewController,
     public navParams: NavParams,
     private database: AngularFireDatabase,
   ) {

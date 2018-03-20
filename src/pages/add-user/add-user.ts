@@ -26,13 +26,11 @@ export class AddUserPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddUserPage');
-    this.user.retrieveUser().subscribe(user => {
-      this.createdCode = user.houseId;
-      this.database.object<any>('/houses/' + this.createdCode)
-      .valueChanges().subscribe(house => {;
+    this.createdCode = this.user.houseId;
+    this.database.object<any>('/houses/' + this.createdCode)
+      .valueChanges().subscribe(house => {
         this.houseName = house.name;
       })
-    });
   }
 
 }

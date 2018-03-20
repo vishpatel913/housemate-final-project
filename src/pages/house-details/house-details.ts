@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from "angularfire2/database";
-import firebase from "firebase";
+import { AngularFireDatabase } from "angularfire2/database";
 import { AddUserPage } from "../add-user/add-user"
 import { UserService } from "../../services/user.service"
-import { AuthService } from "../../services/auth.service"
-
 
 @IonicPage()
 @Component({
@@ -15,9 +12,8 @@ import { AuthService } from "../../services/auth.service"
 })
 export class HouseDetailsPage {
 
-  houseId;
-  houseName;
-  houseDetails;
+  houseId: string;
+  houseName: string;
   houseDetailsRef = null;
 
   constructor(
@@ -26,21 +22,18 @@ export class HouseDetailsPage {
     private modalCtrl: ModalController,
     private database: AngularFireDatabase,
     private user: UserService,
-    private auth: AuthService,
   ) {
 
   }
 
   ngOnInit() {
-    this.user.retrieveUser().subscribe(user => {
-      this.houseId = user.houseId;
-      this.database.object<any>('/houses/' + this.houseId)
+    this.houseId = this.user.houseId;
+    this.database.object<any>('/houses/' + this.houseId)
       .valueChanges().subscribe(house => {
         this.houseName = house.name;
         this.houseDetails = house.details;
-        this.houseDetailsRef = this.getDetails().valueChanges();
       });
-    });
+    this.houseDetailsRef = this.getDetails().valueChanges();
   }
 
   ionViewDidLoad() {

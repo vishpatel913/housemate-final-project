@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Facebook } from '@ionic-native/facebook';
-import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
-import firebase from "firebase";
+import { AngularFireDatabase } from "angularfire2/database";
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AuthService } from "../../services/auth.service";
 import { UserService } from "../../services/user.service";
@@ -28,12 +26,9 @@ export class LoginPage {
 
   }
 
-  ngOnInit() {
-
-  }
-
   // TODO: error message plugin_not_found also fix plugman problem ffs -> plugins/cordova-universal-links-plugin/hooks/lib/ios/xcodePreferences.js
   login() {
+    console.log(this.user.houseId);
     this.auth.signInWithFacebook().then(() => {
       this.user.retrieveUser().subscribe(user => {
         if (!!user.houseId) {
@@ -57,14 +52,15 @@ export class LoginPage {
     console.log('Join house');
     this.barcodeScanner.scan().then(barcodeData => {
       const houseId = barcodeData.text;
-      this.database.object('/users/' + this.user.userId)
+      this.database.object('/users/' + this.user.id)
         .update({
           houseId: houseId,
         })
         .then(() => {
-          const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.userId}`);
+          const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.id}`);
           newUserRef.update({
-            id: this.user.userId,
+            id: this.user.id,
+            name: this.user.name
           });
           this.navCtrl.setRoot(TabsPage);
         });
@@ -78,10 +74,9 @@ export class LoginPage {
   }
 
   getUserDetails() {
-    let userDetails = this.auth.currentUserDetails;
     return {
-      name: this.auth.currentUserName,
-      image: userDetails.photoURL
+      name: this.user.name,
+      image: this.user.image
     }
   }
 

@@ -2,7 +2,7 @@
 
   <ion-navbar color="primary">
     <ion-buttons>
-      <button ion-button clear icon-only color="light" (click)="closeModal()">
+      <button ion-button clear icon-only (click)="closeModal()">
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
@@ -12,17 +12,19 @@
 
 
 <ion-content padding class="wrapper">
+
   <form (ngSubmit)="updateHouseDetails()">
-    <!-- <ion-item>
+    <ion-item>
       <ion-label color="secondary" stacked>House Name</ion-label>
-      <ion-input color="secondary" type="text" [(ngModel)]="house.name" name="text">{{house.name}}</ion-input>
-    </ion-item> -->
+      <ion-input color="secondary" type="text" [(ngModel)]="house.name" name="name">{{house.name}}</ion-input>
+    </ion-item>
     <ion-item>
       <ion-label color="secondary" stacked>House Details</ion-label>
-      <ion-textarea color="secondary" type="text" rows="5" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="text">{{house.details}}</ion-textarea>
+      <ion-textarea color="secondary" type="text" rows="5" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="details">{{house.details}}</ion-textarea>
     </ion-item>
     <button ion-fab class="add-button" type="submit" color="secondary">
       <ion-icon name="send"></ion-icon>
     </button>
   </form>
+
 </ion-content>
