@@ -14,7 +14,7 @@ export class TaskItemComponent {
   @Input('item') task: TaskItem;
   houseId: string;
   userName: string;
-  category: Category;
+  category: CategoryObject;
 
   constructor(
     private modalCtrl: ModalController,
