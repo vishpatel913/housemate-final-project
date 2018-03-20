@@ -16,42 +16,11 @@
 <ion-content>
 
   <ion-list no-lines class="todo-list">
-    <ion-item-sliding *ngFor="let todoItem of (todoItems | async)">
-      <ion-item class="todo-list-item">
-        <span class="todo-list-item-text">{{todoItem.text}}</span>
-        <button class="todo-list-item-check" ion-button icon-only clear (click)="toggleDone(todoItem)">
-          <ion-icon [name]="!todoItem.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
-        </button>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="deleteItem(todoItem)">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item-options>
-      <ion-item-options side="left">
-        <button ion-button color="tertiary" (click)="editItem(todoItem)">
-          <ion-icon name="create"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
+    <task-item *ngFor="let todoItem of (todoItems | async)" [item]="todoItem"></task-item>
   </ion-list>
-
   <button ion-button block padding class="button-primary" color="secondary" *ngIf="doneItemsBool" (click)="toggleShowDone()">{{toggleButtonText}}</button>
-
   <ion-list no-lines class="todo-list" *ngIf="showDoneItems">
-    <ion-item-sliding *ngFor="let doneItem of (doneItems | async)">
-      <ion-item class="todo-list-item done">
-        <span class="todo-list-item-text">{{doneItem.text}}</span>
-        <button class="todo-list-item-check" ion-button icon-only clear (click)="toggleDone(doneItem)">
-          <ion-icon [name]="!doneItem.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
-        </button>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="deleteItem(doneItem)">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
+    <task-item *ngFor="let doneItem of (doneItems | async)" [item]="doneItem"></task-item>
   </ion-list>
 
   <ion-fab right bottom>

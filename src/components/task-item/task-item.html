@@ -1,0 +1,23 @@
+<ion-item-sliding>
+  <ion-item class="task-item">
+    <!-- TODO: need to add done class -->
+    <div [class]="!task.done ? 'task-item-details' : 'task-item-details done'">
+      <span class="task-item-details-text">{{task.text}}</span>
+      <br />
+      <span class="task-item-details-user">{{category.name}}</span>
+    </div>
+    <button [color]="!task.done ? 'primary' : 'light'" ion-button icon-only clear class="task-item-check" (click)="toggleDone()">
+      <ion-icon [name]="!task.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
+    </button>
+  </ion-item>
+  <ion-item-options side="right">
+    <button ion-button color="secondary" (click)="deleteItem()">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-item-options>
+  <ion-item-options side="left">
+    <button ion-button color="tertiary" (click)="editItem()">
+      <ion-icon name="create"></ion-icon>
+    </button>
+  </ion-item-options>
+</ion-item-sliding>

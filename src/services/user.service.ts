@@ -9,16 +9,25 @@ import { AuthService } from "./auth.service"
 export class UserService {
 
   private user;
+  _houseId;
 
   constructor(
     private database: AngularFireDatabase,
     private auth: AuthService
   ) {
-
+    
   }
 
   get userId() {
     return this.auth.currentUserId;
+  }
+
+  get houseId() {
+    return this._houseId;
+  }
+
+  set houseId(value: string) {
+    this._houseId = value;
   }
 
   retrieveUser(id: string = this.userId) {

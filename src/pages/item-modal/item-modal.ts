@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
+import { CategoryArray } from '../../models/task-item/category.model';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,8 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 export class ItemModal {
 
   itemListRef$: AngularFireList<any>;
-  todo = this.navParams.get('data'); // = { id, text, new, createdBy, houseId }
+  todo = this.navParams.get('data'); // = { id, text, createdby, category, new, houseId }
+  categories;
 
   @ViewChild('task') taskInput ;
   constructor(
@@ -20,6 +22,7 @@ export class ItemModal {
     private database: AngularFireDatabase,
   ) {
     this.itemListRef$ = this.database.list<any>(`/houses/${this.todo.houseId}/items`);
+    this.categories = CategoryArray;
   }
 
   ionViewDidLoad() {
@@ -43,7 +46,8 @@ export class ItemModal {
       text: this.todo.text,
       timecreated: Math.floor(Date.now() / 1000),
       done: false,
-      createdBy: this.todo.createdBy
+      createdby: this.todo.createdby,
+      category: this.todo.category
     });
     this.closeModal();
   }
@@ -53,6 +57,7 @@ export class ItemModal {
       .update({
         text: this.todo.text,
         timecreated: Math.floor(Date.now() / 1000),
+        category: this.todo.category
       });
     this.closeModal();
   }

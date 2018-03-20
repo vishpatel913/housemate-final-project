@@ -14,8 +14,14 @@
 <ion-content padding class="wrapper">
   <form (ngSubmit)="handleItemModal()">
     <ion-item>
-      <ion-label color="secondary" stacked>Task</ion-label>
+      <ion-label stacked color="secondary">Task</ion-label>
       <ion-input #task color="secondary" type="text" placeholder="Add a task" [(ngModel)]="todo.text" name="text">{{todo.text}}</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked color="secondary">Category</ion-label>
+      <ion-select interface="popover" [(ngModel)]="todo.category" name="category">
+        <ion-option *ngFor="let category of categories" [value]="category.key" [selected]="category.key == todo.category">{{category.name}}</ion-option>
+      </ion-select>
     </ion-item>
     <button ion-fab class="add-button" type="submit" color="secondary">
       <ion-icon name="send"></ion-icon>
