@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Keyboard } from 'ionic-native';
 import { Facebook } from '@ionic-native/facebook';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -75,7 +75,7 @@ export const firebaseConfig = {
     AuthService,
     UserService,
     AngularFireAuthModule,
-    BarcodeScanner
+    // BarcodeScanner
   ]
 })
 export class AppModule { }

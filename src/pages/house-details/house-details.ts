@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
 import { AddUserPage } from "../add-user/add-user"
 import { UserService } from "../../services/user.service"
 
@@ -14,6 +14,7 @@ export class HouseDetailsPage {
 
   houseId: string;
   houseName: string;
+  houseDetails: AngularFireObject<any>;
   houseDetailsRef = null;
 
   constructor(

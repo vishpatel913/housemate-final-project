@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AuthService } from "../../services/auth.service";
 import { UserService } from "../../services/user.service";
 import { TabsPage } from '../tabs/tabs';
@@ -19,7 +19,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private database: AngularFireDatabase,
-    private barcodeScanner: BarcodeScanner,
+    // private barcodeScanner: BarcodeScanner,
     private auth: AuthService,
     private user: UserService,
   ) {
@@ -50,23 +50,24 @@ export class LoginPage {
   scanHouseCode() {
     // TODO: needs testing on device
     console.log('Join house');
-    this.barcodeScanner.scan().then(barcodeData => {
-      const houseId = barcodeData.text;
-      this.database.object('/users/' + this.user.id)
-        .update({
-          houseId: houseId,
-        })
-        .then(() => {
-          const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.id}`);
-          newUserRef.update({
-            id: this.user.id,
-            name: this.user.name
-          });
-          this.navCtrl.setRoot(TabsPage);
-        });
-    }, (err) => {
-      alert('Error: ' + err);
-    });
+    // this.barcodeScanner.scan().then(barcodeData => {
+    //   const houseId = barcodeData.text;
+    //   this.database.object('/users/' + this.user.id)
+    //     .update({
+    //       houseId: houseId,
+    //     })
+    //     .then(() => {
+    //       const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.id}`);
+    //       newUserRef.update({
+    //         id: this.user.id,
+    //         name: this.user.name
+    //       });
+    //       this.navCtrl.setRoot(TabsPage);
+    //     });
+    // }, (err) => {
+    //   alert('Error: ' + err);
+    // });
+
   }
 
   isAuthed() {

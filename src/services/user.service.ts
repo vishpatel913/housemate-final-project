@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
-import { Facebook } from '@ionic-native/facebook';
 import { AuthService } from "./auth.service"
-
 
 @Injectable()
 export class UserService {

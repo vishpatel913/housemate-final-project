@@ -14,7 +14,7 @@ export class ItemModal {
   @ViewChild('task') taskInput;
   itemListRef$: AngularFireList<any>;
   todo = this.navParams.get('data'); // = { id, text, createdby, category, new, houseId }
-  categories: Array;
+  categories;
 
   constructor(
     public navCtrl: NavController,
