@@ -53,7 +53,6 @@ export class MyApp {
       }
     });
 
-
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -61,15 +60,6 @@ export class MyApp {
       StatusBar.styleDefault();
       splashScreen.hide();
     });
-
-
-    // firebase.initializeApp({
-    //   apiKey: "AIzaSyCv3jGkZ-dELU3NGrw04096u8ijZwdOdE0",
-    //   authDomain: "projecthousemate.firebaseapp.com",
-    //   databaseURL: "https://projecthousemate.firebaseio.com",
-    //   storageBucket: "projecthousemate.appspot.com",
-    //   messagingSenderId: "975050526675"
-    // });
-
+    
   }
 }
