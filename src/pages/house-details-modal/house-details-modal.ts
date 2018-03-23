@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
 
@@ -10,6 +10,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 
 export class HouseDetailsModal {
 
+  @ViewChild('detailInput') detailInput: ElementRef;
   house = this.navParams.get('data'); // = { details, id, name }
 
   constructor(
@@ -23,6 +24,15 @@ export class HouseDetailsModal {
   ionViewDidLoad() {
     const data = this.navParams.get('data');
     console.log(data);
+  }
+
+  resize() {
+    var element = this.detailInput['_elementRef'].nativeElement.getElementsByTagName('textarea')[0];
+    var scrollHeight = element.scrollHeight;
+    element.style.height = scrollHeight + 'px';
+    this.detailInput['_elementRef'].nativeElement.style.overflow = 'hidden';
+    this.detailInput['_elementRef'].nativeElement.style.height = 'auto';
+    this.detailInput['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
   }
 
   updateHouseDetails() {

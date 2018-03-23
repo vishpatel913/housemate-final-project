@@ -20,7 +20,7 @@
     </ion-item>
     <ion-item>
       <ion-label color="secondary" stacked>House Details</ion-label>
-      <ion-textarea color="secondary" type="text" rows="5" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="details">{{house.details}}</ion-textarea>
+      <ion-textarea #detailInput color="secondary" type="text" rows="5" maxLength="500" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." (keyup)="resize()" [(ngModel)]="house.details" name="details">{{house.details}}</ion-textarea>
     </ion-item>
     <button ion-fab class="add-button" type="submit" color="secondary">
       <ion-icon name="send"></ion-icon>

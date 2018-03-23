@@ -1,3 +1,54 @@
 page-house-details {
+  .scroll-content {
+    background-color: color($colors, background);
+    padding-bottom: 56px;
+  }
 
+  .qrcode {
+    img {
+      display: block;
+      margin: auto;
+    }
+  }
+
+  .details {
+    &-title {
+      text-align: center;
+    }
+    &-text {
+
+    }
+  }
+
+  .users {
+    // display: flex;
+    width: 100%;
+    // justify-content: space-around;
+    .user {
+      display: inline-block;
+      padding: 0 12px;
+      text-align: center;
+
+      &.smaller {
+        padding: 0 20px;
+      }
+
+
+      &-image {
+        display: block;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        margin-bottom: 8px;
+
+        &.active {
+          border: 3px double color($colors, primary);
+        }
+      }
+
+      &-name {
+        display: block;
+        color: color($colors, dark);
+      }
+    }
+  }
 }

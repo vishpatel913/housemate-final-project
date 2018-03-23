@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, PopoverController, ViewController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
-import { AddUserPage } from "../add-user/add-user"
-import { UserService } from "../../services/user.service"
+import { SettingsPopover } from "../settings/settings";
+import { UserService } from "../../services/user.service";
 
 @IonicPage()
 @Component({
@@ -12,15 +12,18 @@ import { UserService } from "../../services/user.service"
 })
 export class HouseDetailsPage {
 
+  userId: string;
   houseId: string;
   houseName: string;
   houseDetails: AngularFireObject<any>;
   houseDetailsRef = null;
+  houseUsersRef = null;
+  userCol3: boolean;
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     private modalCtrl: ModalController,
+    public popoverCtrl: PopoverController,
     private database: AngularFireDatabase,
     private user: UserService,
   ) {
@@ -28,6 +31,7 @@ export class HouseDetailsPage {
   }
 
   ngOnInit() {
+    this.userId = this.user.id;
     this.houseId = this.user.houseId;
     this.database.object<any>('/houses/' + this.houseId)
       .valueChanges().subscribe(house => {
@@ -35,6 +39,10 @@ export class HouseDetailsPage {
         this.houseDetails = house.details;
       });
     this.houseDetailsRef = this.getDetails().valueChanges();
+    this.houseUsersRef = this.getUsers().valueChanges();
+    this.houseUsersRef.subscribe(users => {
+      this.userCol3 = users.length == 4 || users.length > 6;
+    });
   }
 
   ionViewDidLoad() {
@@ -45,8 +53,19 @@ export class HouseDetailsPage {
     return this.database.list<any>(`/houses/${this.houseId}/details`);
   }
 
-  addUser() {
-    this.navCtrl.push(AddUserPage);
+  getUsers() {
+    return this.database.list<any>(`/houses/${this.houseId}/users`);
+  }
+
+  getFirstName(name) {
+    return name.split(' ')[0];
+  }
+
+  openMenu(event) {
+    let popover = this.popoverCtrl.create(SettingsPopover);
+    popover.present({
+      ev: event
+    });
   }
 
   openDetailsModal() {

@@ -10,14 +10,14 @@
       <ion-icon [name]="!task.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
     </button>
   </ion-item>
+  <ion-item-options side="left" *ngIf="!task.done">
+    <button ion-button large class="task-button" color="tertiary" (click)="editItem()">
+      <ion-icon name="create"></ion-icon>
+    </button>
+  </ion-item-options>
   <ion-item-options side="right">
     <button ion-button large class="task-button" color="secondary" (click)="deleteItem()">
       <ion-icon name="trash"></ion-icon>
-    </button>
-  </ion-item-options>
-  <ion-item-options side="left">
-    <button ion-button large class="task-button" color="tertiary" (click)="editItem()">
-      <ion-icon name="create"></ion-icon>
     </button>
   </ion-item-options>
 </ion-item-sliding>
