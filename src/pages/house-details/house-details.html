@@ -13,8 +13,9 @@
 
 
 <ion-content padding>
-  <!-- <ion-img height="150" width="100%" src="https://scontent-lhr3-1.cdninstagram.com/vp/339497e3c3370e68a0696f93df70244e/5B4A9B51/t51.2885-15/e35/23161177_128345404547858_385841913204310016_n.jpg"></ion-img> -->
-  <ngx-qrcode [qrc-value]="houseId"></ngx-qrcode>
+  <ion-card class="qrcode-card">
+    <ngx-qrcode [qrc-value]="houseId"></ngx-qrcode>
+  </ion-card>
   <ion-card class="details">
     <ion-card-header class="details-title">House Info</ion-card-header>
     <ion-card-content>

@@ -1,3 +1,25 @@
 page-add-user {
+  .scroll-content {
+    background-color: color($colors, background);
+  }
 
+  .join {
+    width: 75%;
+    margin: auto;
+
+    &-title {
+      text-align: center;
+      font-size: 20px;
+      margin: 12px auto 20px;
+    }
+
+    &-card {
+    }
+
+    &-info {
+      text-align: center;
+      font-size: 16px;
+      color: grey;
+    }
+  }
 }

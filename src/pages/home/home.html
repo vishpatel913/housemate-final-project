@@ -14,12 +14,20 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-list no-lines class="todo-list">
+  <ion-item class="list-header">
+    <span class="list-header-text">
+      House Tasks
+    </span>
+    <!-- <button ion-button outline class="list-header-filter">
+      <ion-icon item-start name="search"></ion-icon>
+      Filter
+    </button> -->
+  </ion-item>
+  <ion-list no-lines class="task-list">
     <task-item *ngFor="let todoItem of (todoItems | async)" [item]="todoItem"></task-item>
   </ion-list>
-  <button ion-button block padding class="button-primary" color="secondary" *ngIf="doneItemsBool" (click)="toggleShowDone()">{{toggleButtonText}}</button>
-  <ion-list no-lines class="todo-list" *ngIf="showDoneItems">
+  <button ion-button outline block padding class="button-primary" color="secondary" *ngIf="doneItemsBool" (click)="toggleShowDone()">{{toggleButtonText}}</button>
+  <ion-list no-lines class="task-list done" *ngIf="showDoneItems">
     <task-item *ngFor="let doneItem of (doneItems | async)" [item]="doneItem"></task-item>
   </ion-list>
 
@@ -28,9 +36,8 @@
       <ion-icon name="add"></ion-icon>
     </button>
     <!-- <ion-fab-list side="top">
-      <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+      <button ion-fab><ion-icon name="cash"></ion-icon></button>
+      <button ion-fab><ion-icon name="basket"></ion-icon></button>
     </ion-fab-list> -->
   </ion-fab>
 

@@ -46,6 +46,12 @@ export class MyApp {
               .valueChanges().subscribe(houseDetails => {
                 this.user.houseName = houseDetails.name;
               });
+            const newUserRef = this.database.object(`/houses/${userData.houseId}/users/${userData.id}`);
+            newUserRef.update({
+              id: userData.id,
+              name: userData.name,
+              image: userData.photoURL
+            });
             this.rootPage = TabsPage;
           });
         }
@@ -57,9 +63,9 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       Keyboard.disableScroll(true);
-      StatusBar.styleDefault();
+      StatusBar.styleBlackTranslucent();
       splashScreen.hide();
     });
-    
+
   }
 }

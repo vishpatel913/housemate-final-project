@@ -62,12 +62,13 @@ export class HomePage {
       showBackdrop: true,
       enableBackdropDismiss: true,
     };
-    const addModalData = {
+    let addModalData = {
       id: "",
       text: "",
       new: true,
       createdby: this.user.id,
-      houseId: this.houseId
+      houseId: this.houseId,
+      category: 'general',
     };
     const addItemModal: Modal = this.modalCtrl.create('ItemModal', { data: addModalData }, addModalOptions);
     addItemModal.present();

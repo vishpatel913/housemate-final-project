@@ -1,34 +1,53 @@
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar padding color="primary">
     <ion-buttons>
       <button ion-button clear icon-only (click)="closeModal()">
-      <ion-icon name="arrow-back"></ion-icon>
-    </button>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
     </ion-buttons>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding class="wrapper">
-  <form (ngSubmit)="handleItemModal()">
-    <ion-item>
-      <ion-label stacked color="secondary">Task</ion-label>
+    <ion-item class="task-header task-title">
+      <ion-icon item-start></ion-icon>
+      <ion-label stacked color="secondary">
+        Task
+      </ion-label>
       <ion-input #task color="secondary" type="text" placeholder="Add a task" [(ngModel)]="todo.text" name="text">
         {{todo.text}}
       </ion-input>
     </ion-item>
-    <button ion-fab class="add-button" type="submit" color="secondary">
-      <ion-icon name="send"></ion-icon>
-    </button>
-    <ion-item>
-      <ion-label stacked color="secondary">Category</ion-label>
+    <ion-item no-lines class="task-header task-category">
+      <ion-icon item-start></ion-icon>
+      <ion-label stacked color="secondary">
+        Category
+      </ion-label>
       <ion-select interface="popover" [(ngModel)]="todo.category" name="category">
         <ion-option *ngFor="let category of categories" [value]="category.key" [selected]="category.key == todo.category">
           {{category.name}}
         </ion-option>
       </ion-select>
     </ion-item>
-  </form>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-fab top right edge>
+    <button ion-fab color="secondary" class="task-add" (click)="handleItemModal()">
+        <ion-icon name="send"></ion-icon>
+      </button>
+  </ion-fab>
+  <ion-item no-lines class="task-user">
+    <ion-icon color="light" name="person" item-start></ion-icon>
+    <ion-label stacked color="secondary">
+      Tag User
+    </ion-label>
+    <ion-select interface="popover" [(ngModel)]="todo.taggeduser" name="taggeduser">
+      <ion-option *ngFor="let user of (userRef | async)" [value]="user.id" [selected]="user.id == todo.taggeduser">
+        {{user.name}}
+      </ion-option>
+      <ion-option value="" [selected]="todo.new || todo.taggeduser == ''">No tag</ion-option>
+    </ion-select>
+  </ion-item>
+
 </ion-content>

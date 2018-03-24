@@ -1,8 +1,25 @@
 page-house-details-modal {
-  .wrapper {
-    .add-button {
-      float: right;
-      margin: 8px 0;
+  .item-md .item-inner {
+    margin-left: 8px !important;
+  }
+
+  .house {
+    &-name {
+      padding-bottom: 24px;
+      background: none;
+
+      .label {
+        font-size: 1.5rem;
+      }
+
+      ion-input {
+        font-size: 1.5em;
+        color: #ffffff;
+      }
+    }
+
+    &-add {
+      margin: 0 8px;
     }
   }
 }

@@ -4,20 +4,25 @@ page-house-details {
     padding-bottom: 56px;
   }
 
-  .qrcode {
-    img {
-      display: block;
-      margin: auto;
+  .qrcode-card {
+    width: 40%;
+    margin: auto auto 16px;
+
+    .qrcode {
+      img {
+        display: block;
+        margin: auto;
+      }
     }
   }
 
   .details {
+    margin-bottom: 16px;
     &-title {
       text-align: center;
     }
-    &-text {
 
-    }
+    &-text {}
   }
 
   .users {
@@ -32,7 +37,6 @@ page-house-details {
       &.smaller {
         padding: 0 20px;
       }
-
 
       &-image {
         display: block;

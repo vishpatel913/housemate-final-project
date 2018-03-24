@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, AlertController } from 'ionic-angular';
 
 import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
 
@@ -21,6 +21,7 @@ export class SettingsPopover {
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ViewController,
+    public alertCtrl: AlertController,
     private database: AngularFireDatabase,
     private auth: AuthService,
     private user: UserService,
@@ -35,16 +36,56 @@ export class SettingsPopover {
   }
 
   leaveHouse() {
-    this.database.object<any>(`/users/${this.userId}/houseId`)
-      .remove();
-    this.database.object<any>(`/houses/${this.houseId}/users/${this.userId}`)
-      .remove();
-    this.navCtrl.setRoot(LoginPage);
-  };
+    let confirmLeave = this.alertCtrl.create({
+      title: 'Leave House?',
+      message: 'Are you sure you want to leave this house?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Not Leaving');
+            this.close();
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Leaving these snakes');
+            this.database.object<any>(`/users/${this.userId}/houseId`)
+              .remove();
+            this.database.object<any>(`/houses/${this.houseId}/users/${this.userId}`)
+              .remove();
+            this.navCtrl.setRoot(LoginPage);
+          }
+        }
+      ]
+    });
+    confirmLeave.present();
+  }
 
   logout() {
-    this.auth.signOut();
-    this.navCtrl.setRoot(LoginPage);
+    let confirmLogout = this.alertCtrl.create({
+      title: 'Logout?',
+      message: 'Are you sure you want to logout?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Still logged in');
+            this.close();
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('BuBye');
+            this.auth.signOut();
+            this.navCtrl.setRoot(LoginPage);
+          }
+        }
+      ]
+    });
+    confirmLogout.present();
   }
 
   close() {

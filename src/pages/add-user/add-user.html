@@ -8,11 +8,13 @@
 
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header>{{ houseName }}</ion-card-header>
-    <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-    <ion-card-content>
-      <p>Scan to join house</p>
-    </ion-card-content>
-  </ion-card>
+  <div class="join">
+    <ion-title class="join-title">{{ houseName }}</ion-title>
+    <ion-card class="join-card">
+      <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+    </ion-card>
+    <p class="join-info">
+      To add a user to this house, they'll need to scan this barcode from the login page
+    </p>
+  </div>
 </ion-content>
