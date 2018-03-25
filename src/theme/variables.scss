@@ -35,16 +35,25 @@ $text-input-highlight-color-invalid: #E91E63;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #00AA8d,
+  primary:    #5E35B1,
   secondary:  #E91E63,
   tertiary:   #FDD835,
   danger:     #f53d3d,
   light:      #d3d3d3,
-  dark:       #222,
+  dark:       #333,
   facebook:   #3B5998,
-  background: #f7fffb,
+  background: #fff9fb,
+  // primary:    #00AA8d,
+  // secondary:  #E91E63,
+  // tertiary:   #FDD835,
+  // background: #f7fffb,
 );
 
+
+// $font-family: 'Cabin';
+// $font-family: 'Oxygen';
+$font-family: 'Rubik';
+// $font-family: 'Signika';
 
 // App iOS Variables
 // --------------------------------------------------
@@ -52,6 +61,7 @@ $colors: (
 
 $text-input-ios-show-focus-highlight: true;
 $text-input-ios-highlight-color: #E91E63;
+$font-family-ios-base: $font-family;
 
 // App Material Design Variables
 // --------------------------------------------------
@@ -59,6 +69,7 @@ $text-input-ios-highlight-color: #E91E63;
 
 $text-input-md-highlight-color: #E91E63;
 $label-md-text-color-focused: #E91E63;
+$font-family-md-base: $font-family;
 
 // App Windows Variables
 // --------------------------------------------------

@@ -23,6 +23,7 @@ import { AddUserPage } from '../pages/add-user/add-user';
 import { LoginPage } from '../pages/login/login';
 import { CreatePage } from '../pages/create/create';
 import { HouseDetailsPage } from '../pages/house-details/house-details';
+import { SettingsPopover } from '../pages/settings/settings';
 
 import { TaskItemComponent } from '../components/task-item/task-item';
 
@@ -43,6 +44,7 @@ export const firebaseConfig = {
     HomePage,
     AddUserPage,
     HouseDetailsPage,
+    SettingsPopover,
     TaskItemComponent
   ],
   imports: [
@@ -62,6 +64,7 @@ export const firebaseConfig = {
     HomePage,
     AddUserPage,
     HouseDetailsPage,
+    SettingsPopover,
     TaskItemComponent
   ],
   providers: [

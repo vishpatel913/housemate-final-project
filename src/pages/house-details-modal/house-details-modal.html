@@ -1,30 +1,40 @@
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar padding color="primary">
     <ion-buttons>
       <button ion-button clear icon-only (click)="closeModal()">
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-item class="house-name">
+      <ion-icon item-start></ion-icon>
+      <ion-label color="secondary" stacked>
+        House Name
+      </ion-label>
+      <ion-input color="secondary" type="text" [(ngModel)]="house.name" name="name">
+        {{house.name}}
+      </ion-input>
+    </ion-item>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding class="wrapper">
+<ion-content padding>
 
-  <form (ngSubmit)="updateHouseDetails()">
-    <ion-item>
-      <ion-label color="secondary" stacked>House Name</ion-label>
-      <ion-input color="secondary" type="text" [(ngModel)]="house.name" name="name">{{house.name}}</ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="secondary" stacked>House Details</ion-label>
-      <ion-textarea color="secondary" type="text" rows="5" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." [(ngModel)]="house.details" name="details">{{house.details}}</ion-textarea>
-    </ion-item>
-    <button ion-fab class="add-button" type="submit" color="secondary">
+  <ion-fab top right edge>
+    <button ion-fab color="secondary" class="house-add" (click)="updateHouseDetails()">
       <ion-icon name="send"></ion-icon>
     </button>
-  </form>
+  </ion-fab>
+  <ion-item class="house-details">
+    <ion-icon color="light" name="home" item-start></ion-icon>
+    <ion-label color="secondary" stacked>
+      House Details
+    </ion-label>
+    <ion-textarea #detailInput color="secondary" type="text" rows="5" maxLength="500" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." (keyup)="resize()" [(ngModel)]="house.details" name="details">
+      {{house.details}}
+    </ion-textarea>
+  </ion-item>
 
 </ion-content>

@@ -15,6 +15,7 @@ export class ItemModal {
   itemListRef$: AngularFireList<any>;
   todo = this.navParams.get('data'); // = { id, text, createdby, category, new, houseId }
   categories;
+  userRef;
 
   constructor(
     public navCtrl: NavController,
@@ -24,6 +25,7 @@ export class ItemModal {
   ) {
     this.itemListRef$ = this.database.list<any>(`/houses/${this.todo.houseId}/items`);
     this.categories = CategoryArray;
+    this.userRef = this.database.list<any>(`/houses/${this.todo.houseId}/users`).valueChanges();
   }
 
   ionViewDidEnter() {
@@ -31,15 +33,18 @@ export class ItemModal {
       Keyboard.show() // for android
       this.taskInput.setFocus();
     }, 150);
-    const data = this.navParams.get('data');
-    console.log(data);
+    console.log(this.todo);
   }
 
   handleItemModal() {
-    if (this.todo.new) {
-      this.saveItem();
+    if (this.todo.text !== '') {
+      if (this.todo.new) {
+        this.saveItem();
+      } else {
+        this.editItem();
+      }
     } else {
-      this.editItem();
+      this.closeModal();
     }
   }
 
@@ -51,17 +56,20 @@ export class ItemModal {
       timecreated: Math.floor(Date.now() / 1000),
       done: false,
       createdby: this.todo.createdby,
-      category: this.todo.category || 'general'
+      category: this.todo.category || 'general',
+      taggeduser: this.todo.taggeduser || ''
     });
     this.closeModal();
   }
 
   editItem() {
+    console.log('teageduser', this.todo.taggeduser);
     this.database.object(`/houses/${this.todo.houseId}/items/${this.todo.id}`)
       .update({
         text: this.todo.text,
         timecreated: Math.floor(Date.now() / 1000),
-        category: this.todo.category
+        category: this.todo.category,
+        taggeduser: this.todo.taggeduser || ''
       });
     this.closeModal();
   }

@@ -20,6 +20,14 @@ page-login {
     }
   }
 
+  .login-buttons {
+    .scan-prompt {
+      font-size: 12px;
+      color: grey;
+      text-align: center;
+    }
+  }
+
   .footer {
     display: flex;
     position: absolute;
@@ -38,7 +46,7 @@ page-login {
         border-radius: 50%;
         height: 100%;
         width: auto;
-        border: 0.5px solid #fff
+        border: 0.5px solid color($colors, primary);
       }
 
       &-text {

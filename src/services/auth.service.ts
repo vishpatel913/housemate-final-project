@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { AngularFireDatabase } from "angularfire2/database";
 import { Facebook } from '@ionic-native/facebook';
 
-import { Platform } from 'ionic-angular';
 import { MockUserData } from './mock-user-data';
 
 
@@ -18,10 +18,9 @@ export class AuthService {
     private database: AngularFireDatabase,
   ) {
     firebase.auth().onAuthStateChanged(user => {
-      this.userDetails = user;
       if (user) {
+        this.userDetails = user;
       } else {
-        console.log('huh');
         this.userDetails = null;
         this.userDetails = platform.is('cordova') ? null : MockUserData;
       }
@@ -51,10 +50,6 @@ export class AuthService {
   // Returns current user photo url
   get currentUserPhotoUrl(): string {
     return this.authenticated ? this.userDetails.photoURL : '';
-  }
-
-  waitForAuth() {
-    return new Promise((resolve, reject) => resolve(this.authenticated));
   }
 
   signInWithFacebook() {

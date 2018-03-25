@@ -3,8 +3,8 @@
   <ion-navbar color="primary">
     <ion-title>{{houseName}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="addUser()">
-        <ion-icon name="person-add"></ion-icon>
+      <button ion-button icon-only (click)="openMenu($event)">
+        <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -13,16 +13,29 @@
 
 
 <ion-content padding>
-  <!-- <ion-img height="150" width="100%" src="https://scontent-lhr3-1.cdninstagram.com/vp/339497e3c3370e68a0696f93df70244e/5B4A9B51/t51.2885-15/e35/23161177_128345404547858_385841913204310016_n.jpg"></ion-img> -->
-  <ion-card>
-    <ion-card-header>House Details</ion-card-header>
+  <ion-card class="qrcode-card">
+    <ngx-qrcode [qrc-value]="houseId"></ngx-qrcode>
+  </ion-card>
+  <ion-card class="details">
+    <ion-card-header class="details-title">House Info</ion-card-header>
     <ion-card-content>
-      <ion-item text-wrap *ngFor="let info of (houseDetailsRef | async)">
-        {{info.text}}
-      </ion-item>
+      <p text-wrap class="details-text" *ngFor="let details of (houseDetailsRef | async)">
+        {{details.text}}
+      </p>
     </ion-card-content>
   </ion-card>
-
+  <div class="users">
+    <ion-grid>
+      <ion-row justify-content-around >
+        <ion-col align-self-center *ngFor="let user of (houseUsersRef | async)" [attr.col-3]="userCol3 ? '' : null" [attr.col-4]="!userCol3 ? '' : null">
+          <div class="user" [class.smaller]="!userCol3">
+            <img class="user-image" [class.active]="user.id == userId" src={{user.image}}>
+            <span class="user-name">{{getFirstName(user.name)}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
   <ion-fab right bottom>
     <button ion-fab color="secondary" (click)="openDetailsModal()">
       <ion-icon name="create"></ion-icon>

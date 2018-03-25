@@ -1,8 +1,58 @@
 page-item-modal {
-  .wrapper {
-    .add-button {
-      float: right;
-      margin: 8px 0;
+  .item-md .item-inner {
+    margin-left: 8px !important;
+  }
+
+  .task {
+    &-title {
+      padding-bottom: 24px;
+    }
+
+    &-header {
+      background: none;
+
+      .label {
+        font-size: 1.5rem;
+      }
+
+      ion-input {
+        font-size: 1.5em;
+        color: #ffffff;
+
+        ::placeholder {
+          color: #ffffff80;
+        }
+      }
+
+      ion-select {
+        font-size: 1.2rem;
+        color: #ffffff;
+        padding-top: 4px !important;
+      }
+
+      .select-icon {
+        display: none;
+      }
+    }
+
+    &-user {
+      .label {
+        font-size: 1.5rem;
+      }
+
+      ion-select {
+        font-size: 1.2rem;
+        color: grey;
+        padding-top: 4px !important;
+      }
+
+      .select-icon {
+        display: none;
+      }
+    }
+
+    &-add {
+      margin: 0 8px;
     }
   }
 }

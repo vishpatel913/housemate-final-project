@@ -15,6 +15,7 @@ export class TaskItemComponent {
   houseId: string;
   userName: string;
   category: CategoryObject;
+  userTag: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -26,6 +27,7 @@ export class TaskItemComponent {
 
   ngOnInit() {
     this.category = Category[this.task.category];
+    this.setTaggedUser();
   }
 
   toggleDone() {
@@ -47,7 +49,8 @@ export class TaskItemComponent {
       id: this.task.id,
       text: this.task.text,
       category: this.task.category,
-      createdby: this.user.id,
+      createdby: this.task.createdby,
+      taggeduser: this.task.taggeduser || '',
       new: false,
       houseId: this.houseId,
     };
@@ -60,7 +63,14 @@ export class TaskItemComponent {
       .remove();
   }
 
-  getDoneClass() {
-    return this.task.done ? 'done' : '';
+  setTaggedUser() {
+    let tagId = this.task.taggeduser;
+    if (tagId && tagId !== '') {
+      this.database.object<any>(`/houses/${this.houseId}/users/${tagId}`)
+        .valueChanges().subscribe(user => {
+          this.userTag = '@' + user.name.split(' ')[0];
+          console.log(this.task.taggeduser, this.userTag);
+        })
+    }
   }
 }

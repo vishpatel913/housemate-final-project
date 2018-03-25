@@ -1,26 +1,50 @@
 task-item {
   .task-item {
+    .label {
+      display: flex;
+      justify-content: space-between;
+    }
 
     &-details {
-      display: inline-block;
+      display: block;
       vertical-align: -webkit-baseline-middle;
       position: relative;
       width: 90%;
       white-space: normal;
 
-      &-text {}
+      &-text {
+        display: block;
+        margin-bottom: 4px;
+      }
 
-      &-user {
+      &-tag {
+        display: inline-block;
+        font-size: 12px;
+        color: color($colors, secondary);
+      }
+
+      &-category {
+        display: block;
         font-size: 12px;
         color: grey;
       }
 
       &.done {
         color: grey;
+        span {
+          color: grey;
+        }
       }
     }
 
+    &-rhs {
+      display: inline-block;
+      vertical-align: -webkit-baseline-middle;
+      position: relative;
+    }
+
     &-check {
+      display: block;
       float: right;
     }
   }
