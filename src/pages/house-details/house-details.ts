@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, PopoverController, ViewController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, PopoverController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
 import { SettingsPopover } from "../settings/settings";

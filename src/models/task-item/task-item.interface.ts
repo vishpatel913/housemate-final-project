@@ -1,13 +1,13 @@
 export interface TaskItem {
-  id: string;
+  id: string; // unique id of task item
   text: string;
-  createdby: string;
-  taggeduser: string;
+  createdby: string; // unique id of user that created item
+  taggeduser: string; // unique id of user tagged in task
   category: string;
-  timecreated: number;
-  timedone: number;
+  timecreated: number; // timestamp of time created
+  timedone: number; // timestamp of time completed
+  done: boolean; // state of task completion
   // priority: number;
-  done: boolean;
 }
 
 export interface CategoryObject {

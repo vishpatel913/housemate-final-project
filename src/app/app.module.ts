@@ -27,6 +27,8 @@ import { SettingsPopover } from '../pages/settings/settings';
 
 import { TaskItemComponent } from '../components/task-item/task-item';
 
+// import { FIREBASE_CREDENTIALS } from "./firebase.credentials";
+
 export const firebaseConfig = {
   apiKey: 'AIzaSyCv3jGkZ-dELU3NGrw04096u8ijZwdOdE0',
   authDomain: 'projecthousemate.firebaseapp.com',

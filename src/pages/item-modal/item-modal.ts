@@ -63,7 +63,6 @@ export class ItemModal {
   }
 
   editItem() {
-    console.log('teageduser', this.todo.taggeduser);
     this.database.object(`/houses/${this.todo.houseId}/items/${this.todo.id}`)
       .update({
         text: this.todo.text,

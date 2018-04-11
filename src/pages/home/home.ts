@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+import { AngularFireDatabase } from "angularfire2/database";
 import { AddUserPage } from "../add-user/add-user"
 import { UserService } from "../../services/user.service"
-import { AuthService } from "../../services/auth.service"
 
 @Component({
   selector: 'page-home',
@@ -13,7 +12,6 @@ import { AuthService } from "../../services/auth.service"
 })
 export class HomePage {
 
-  houseRef: AngularFireObject<any>;
   houseId: string;
   houseName: string;
   todoItems;
@@ -27,7 +25,6 @@ export class HomePage {
     public facebook: Facebook,
     private modalCtrl: ModalController,
     private database: AngularFireDatabase,
-    private auth: AuthService,
     private user: UserService,
   ) {
 

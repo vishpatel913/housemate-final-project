@@ -43,12 +43,11 @@ export class LoginPage {
   }
 
   create() {
-    this.navCtrl.push(CreatePage, {}, { animate: false });
     console.log('Create page');
+    this.navCtrl.push(CreatePage, {}, { animate: false });
   }
 
   scanHouseCode() {
-    // TODO: needs testing on device
     console.log('Join house');
     this.barcodeScanner.scan().then(barcodeData => {
       const houseId = barcodeData.text;

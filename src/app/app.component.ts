@@ -31,14 +31,13 @@ export class MyApp {
               .valueChanges().subscribe(houseDetails => {
                 this.user.houseName = houseDetails.name;
               });
-            console.log('User has list');
             this.rootPage = TabsPage;
           } else {
             this.rootPage = LoginPage;
           }
         });
       } else {
-        // Code for testing on web
+        // Testing code for running on web
         if (!platform.is('cordova')) {
           this.user.retrieveUser().subscribe(userData => {
             this.user.houseId = userData.houseId;
@@ -46,15 +45,10 @@ export class MyApp {
               .valueChanges().subscribe(houseDetails => {
                 this.user.houseName = houseDetails.name;
               });
-            const newUserRef = this.database.object(`/houses/${userData.houseId}/users/${userData.id}`);
-            newUserRef.update({
-              id: userData.id,
-              name: userData.name,
-              image: userData.photoURL
-            });
             this.rootPage = TabsPage;
           });
         }
+        // End of testing code
         else this.rootPage = LoginPage;
       }
     });
