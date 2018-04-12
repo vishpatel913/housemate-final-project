@@ -1,50 +1,27 @@
-// TODO: sort this out pls
 export const Category = {
   general: {
     key: 'general',
     name: 'General',
-    color: '#E91E63'
+    color: '#DABFFF'
   },
   finance: {
     key: 'finance',
     name: 'Finance',
-    color: '#E91E63'
+    color: '#6FEDB7'
   },
   shopping: {
     key: 'shopping',
     name: 'Shopping',
-    color: '#E91E63'
+    color: '#657ED4'
   },
   chores: {
     key: 'chores',
     name: 'Chores',
-    color: '#E91E63'
+    color: '#DA627D'
   },
   social: {
     key: 'social',
     name: 'Social',
-    color: '#E91E63'
+    color: '#FADF63'
   }
 }
-export const CategoryArray = [
-  {
-    key: 'general',
-    name: 'General'
-  },
-  {
-    key: 'finance',
-    name: 'Finance'
-  },
-  {
-    key: 'shopping',
-    name: 'Shopping'
-  },
-  {
-    key: 'chores',
-    name: 'Chores'
-  },
-  {
-    key: 'social',
-    name: 'Social'
-  }
-]

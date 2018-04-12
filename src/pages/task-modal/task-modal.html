@@ -33,7 +33,7 @@
 <ion-content padding>
 
   <ion-fab top right edge>
-    <button ion-fab color="secondary" class="task-add" (click)="handleItemModal()">
+    <button ion-fab color="secondary" class="task-add" (click)="handleTaskModal()">
         <ion-icon name="send"></ion-icon>
       </button>
   </ion-fab>
@@ -43,11 +43,18 @@
       Tag User
     </ion-label>
     <ion-select interface="popover" [(ngModel)]="todo.taggeduser" name="taggeduser">
-      <ion-option *ngFor="let user of (userRef | async)" [value]="user.id" [selected]="user.id == todo.taggeduser">
+      <ion-option *ngFor="let user of (usersRef | async)" [value]="user.id" [selected]="user.id == todo.taggeduser">
         {{user.name}}
       </ion-option>
       <ion-option value="" [selected]="todo.new || todo.taggeduser == ''">No tag</ion-option>
     </ion-select>
+  </ion-item>
+  <ion-item no-lines class="task-important">
+    <ion-icon color="light" name="notifications" item-start></ion-icon>
+    <ion-label color="secondary">
+      Important
+    </ion-label>
+    <ion-toggle [checked]="todo.important" [(ngModel)]="todo.important" name="important"></ion-toggle>
   </ion-item>
 
 </ion-content>

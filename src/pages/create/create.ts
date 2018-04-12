@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { AuthService } from "../../services/auth.service";
 import { TabsPage } from "../tabs/tabs";
@@ -18,10 +19,17 @@ export class CreatePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private formBuilder: FormBuilder,
     private database: AngularFireDatabase,
     private auth: AuthService,
   ) {
     this.houseListRef = this.database.list<any>('/houses');
+    // this.houseForm = this.formBuilder.group({
+    //   name: ['', Validators.required],
+    //   details: ['']
+    // });
+    // [formGroup]="houseForm"
+    // [formControl]="houseForm.controls['name/details']"
   }
 
   ionViewDidLoad() {
@@ -36,11 +44,9 @@ export class CreatePage {
     const newHouseRef = this.houseListRef.push({});
     const newHouseKey = newHouseRef.key;
     const userId = this.auth.currentUserId;
-    const houseDefault = 'House ' + newHouseKey.substring(0, 5);
     newHouseRef.set({
       id: newHouseKey,
-      name: this.house.name || houseDefault,
-      // image: '',
+      name: this.house.name || this.defaultHouseName(newHouseKey),
     }).then(_ => {
       if (this.house.details) this.setHouseDetails(newHouseKey);
       const newUserRef = this.database.object(`/houses/${newHouseKey}/users/${userId}`);
@@ -65,6 +71,12 @@ export class CreatePage {
         text: detail
       });
     }
+  }
+
+  defaultHouseName(id: string) {
+    let limit = id.length - 7;
+    let i = Math.floor(Math.random() * limit)
+    return 'House ' + id.substring(i, i + 7);
   }
 
 }

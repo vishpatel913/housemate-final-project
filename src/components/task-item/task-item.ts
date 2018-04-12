@@ -16,6 +16,7 @@ export class TaskItemComponent {
   userName: string;
   category: CategoryObject;
   userTag: string;
+  easterEgg: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -28,6 +29,7 @@ export class TaskItemComponent {
   ngOnInit() {
     this.category = Category[this.task.category];
     this.setTaggedUser();
+    this.easterEgg = this.getEasterEgg();
   }
 
   toggleDone() {
@@ -51,11 +53,12 @@ export class TaskItemComponent {
       category: this.task.category,
       createdby: this.task.createdby,
       taggeduser: this.task.taggeduser || '',
-      new: false,
+      important: this.task.important || false,
       houseId: this.houseId,
+      new: false,
     };
-    const editItemModal: Modal = this.modalCtrl.create('ItemModal', { data: editModalData }, editModalOptions);
-    editItemModal.present();
+    const editTaskModal: Modal = this.modalCtrl.create('TaskModal', { data: editModalData }, editModalOptions);
+    editTaskModal.present();
   }
 
   deleteItem() {
@@ -72,5 +75,10 @@ export class TaskItemComponent {
           console.log(this.task.taggeduser, this.userTag);
         })
     }
+  }
+
+  getEasterEgg() {
+    let text = this.task.text;
+    if (text.search('.*beer.*') == 0) return 'beer';
   }
 }

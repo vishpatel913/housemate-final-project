@@ -7,10 +7,11 @@ export interface TaskItem {
   timecreated: number; // timestamp of time created
   timedone: number; // timestamp of time completed
   done: boolean; // state of task completion
-  // priority: number;
+  important: boolean; // state of importance
 }
 
 export interface CategoryObject {
+  key: string;
   name: string;
   color: string;
 }

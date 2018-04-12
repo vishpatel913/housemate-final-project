@@ -19,6 +19,8 @@ export class HomePage {
   doneItemsBool: boolean;
   showDoneItems: boolean = false;
   toggleButtonText: string = "Show Completed";
+  noTasks: boolean = false;
+  noTaskMessage = { 'icon': '', 'text': '' };
 
   constructor(
     public navCtrl: NavController,
@@ -27,10 +29,13 @@ export class HomePage {
     private database: AngularFireDatabase,
     private user: UserService,
   ) {
-
   }
 
   ngOnInit() {
+    this.noTaskMessage = {
+      icon: this.getRandomIcon(),
+      text: this.getRandomMessage(),
+    };
     this.houseId = this.user.houseId;
     this.database.object<any>('/houses/' + this.houseId)
       .valueChanges().subscribe(house => {
@@ -44,6 +49,10 @@ export class HomePage {
         this.clearOldItems();
       } else this.doneItemsBool = false;
     });
+    this.todoItems.subscribe(data => {
+      this.noTasks = data.length < 1 && !this.doneItemsBool;
+      console.log('no tasks?', this.noTasks)
+    })
   }
 
   ionViewDidLoad() {
@@ -67,8 +76,8 @@ export class HomePage {
       houseId: this.houseId,
       category: 'general',
     };
-    const addItemModal: Modal = this.modalCtrl.create('ItemModal', { data: addModalData }, addModalOptions);
-    addItemModal.present();
+    const addTaskModal: Modal = this.modalCtrl.create('TaskModal', { data: addModalData }, addModalOptions);
+    addTaskModal.present();
   }
 
   toggleShowDone() {
@@ -96,6 +105,24 @@ export class HomePage {
           }
         });
       })
+  }
+
+  getRandomIcon() {
+    const iconArr = [
+      'md-checkmark-circle-outline',
+      'key',
+      'glasses',
+      'iontron',
+      'paper-plane',
+      'pizza',
+      'ribbon',
+      'rose'
+    ];
+    return iconArr[Math.floor(Math.random() * iconArr.length)];
+  }
+
+  getRandomMessage() {
+    return 'Nothing needs doing today';
   }
 
 }
