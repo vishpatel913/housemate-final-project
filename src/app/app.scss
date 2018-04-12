@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,7 +12,6 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 @import url('https://fonts.googleapis.com/css?family=Cabin|Oxygen|Rubik|Signika');
 
 .button {
@@ -23,10 +20,15 @@
     max-width: fit-content;
     min-width: 200px;
   }
+
   &-back {
     margin-top: 16px;
     position: absolute;
     top: 0;
     left: 0;
   }
+}
+
+ion-input {
+  caret-color: color($colors, secondary);
 }

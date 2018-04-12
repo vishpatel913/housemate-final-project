@@ -15,6 +15,10 @@ page-house-details-modal {
       ion-input {
         font-size: 1.5em;
         color: #ffffff;
+
+        ::placeholder {
+          color: #ffffff80 !important;
+        }
       }
     }
 

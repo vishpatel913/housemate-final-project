@@ -27,6 +27,10 @@ page-create {
       padding-right: 12px;
       width: 80%;
       background: none;
+
+      ::placeholder {
+        color: rgba(#000000, .4) !important;
+      }
     }
   }
 }
