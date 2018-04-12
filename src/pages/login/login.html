@@ -6,14 +6,14 @@
   </div>
 
   <div class="login-buttons" *ngIf="!isAuthed()">
-    <button ion-button block icon-start class="button-primary" color="facebook" (click)="login()">
+    <button ion-button block outline icon-start class="button-primary" color="facebook" (click)="login()">
     <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>
     Facebook Login
   </button>
   </div>
   <div class="login-buttons" *ngIf="isAuthed()">
-    <button ion-button block class="button-primary" color="secondary" (click)="create()">Create House</button>
-    <button ion-button block class="button-primary" color="secondary" (click)="scanHouseCode()">Join House</button>
+    <button ion-button block outline class="button-primary" color="secondary" (click)="create()">Create House</button>
+    <button ion-button block outline class="button-primary" color="secondary" (click)="scanHouseCode()">Join House</button>
     <p class="scan-prompt">Scan your housemate's barcode to join</p>
   </div>
   <div class="footer" *ngIf="isAuthed()">

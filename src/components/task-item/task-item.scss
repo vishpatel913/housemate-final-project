@@ -24,13 +24,21 @@ task-item {
       }
 
       &-category {
-        display: block;
+        display: flex;
         font-size: 12px;
-        color: grey;
+        ion-icon {
+          margin-right: 4px;
+        }
+        span {
+          color: grey;
+        }
       }
+    }
 
-      &.done {
-        color: grey;
+    &.done {
+      border-left-color: color($colors, light) !important;
+
+      .task-item-details {
         span {
           color: grey;
         }
@@ -46,6 +54,12 @@ task-item {
     &-check {
       display: block;
       float: right;
+    }
+
+    &.important {
+      border-left-width: 4px !important;
+      border-left: 4px solid color($colors, secondary);
+      padding-left: 12px;
     }
   }
 }

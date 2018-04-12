@@ -18,4 +18,21 @@ page-home {
       float: right;
     }
   }
+
+  .no-tasks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 25% 0;
+
+    &-icon {
+      font-size: 12em;
+      margin: 12px;
+    }
+
+    &-text div{
+      color: grey;
+    }
+  }
 }

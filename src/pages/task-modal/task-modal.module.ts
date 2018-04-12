@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { ItemModal } from './item-modal';
+import { TaskModal } from './task-modal';
 
 @NgModule({
   declarations: [
-    ItemModal,
+    TaskModal,
   ],
   imports: [
-    IonicPageModule.forChild(ItemModal),
+    IonicPageModule.forChild(TaskModal),
   ],
   exports: [
-    ItemModal
+    TaskModal
   ]
 })
-export class ItemModalModule {}
+export class TaskModalModule {}

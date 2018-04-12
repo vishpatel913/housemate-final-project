@@ -41,4 +41,9 @@
     </ion-fab-list> -->
   </ion-fab>
 
+  <div class="no-tasks" *ngIf="noTasks">
+    <ion-icon class="no-tasks-icon" [name]="noTaskMessage.icon" color="light"></ion-icon>
+    <ion-title class="no-tasks-text">{{noTaskMessage.text}}</ion-title>
+  </div>
+
 </ion-content>

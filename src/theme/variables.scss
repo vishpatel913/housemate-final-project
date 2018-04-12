@@ -24,6 +24,7 @@ $app-direction: ltr;
 
 $text-input-highlight-color-valid: #E91E63;
 $text-input-highlight-color-invalid: #E91E63;
+$text-input-placeholder-color: rgba( #000000, .4 );
 
 
 // Named Color Variables
@@ -40,16 +41,29 @@ $colors: (
   tertiary:   #FDD835,
   correct:    #00AA8d,
   amber:      #FDD835,
-  danger:     #f53d3d,
-  light:      #d3d3d3,
+  danger:     #D72638,
+  light:      #D3D3D3,
   dark:       #333,
   facebook:   #3B5998,
-  background: #fff9fb,
+  background: #FFF9FB,
   // primary:    #00AA8d,
-  // secondary:  #E91E63,
-  // tertiary:   #FDD835,
-  // background: #f7fffb,
+  // background: #F7FFFB,
+  general:    #DABFFF,
+  finance:    #A1E8CC,
+  shopping:   #A0DDE6,
+  chores:     #F0A6CA,
+  social:     #FFED99,
 );
+
+// colour test pallet
+// #A0DDE6 #F9DBBD #DA627D
+// #6BAA75 #EFC3E6 #F0A6CA
+// #9C89B8 #F44E3F #A9E5BB
+// #657ED4 #B8BEDD #FADF63
+// #6FEDB7 #4EA699 #A1E8CC
+// #FAC9B8 #A7ABDD #EDFF7A
+// #B7F0AD #6D9DC5 #AFBBF2
+// #3E92CC #EEEBD0 #1B998B
 
 
 // $font-family: 'Cabin';
