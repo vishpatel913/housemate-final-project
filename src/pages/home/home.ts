@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { AddUserPage } from "../add-user/add-user"
 import { UserService } from "../../services/user.service"
 
@@ -20,7 +20,7 @@ export class HomePage {
   showDoneItems: boolean = false;
   toggleButtonText: string = "Show Completed";
   noTasks: boolean = false;
-  noTaskMessage = { 'icon': '', 'text': '' };
+  noTaskMessage: { icon: string; text: string };
 
   constructor(
     public navCtrl: NavController,
@@ -29,6 +29,7 @@ export class HomePage {
     private database: AngularFireDatabase,
     private user: UserService,
   ) {
+    this.houseId = user.houseId;
   }
 
   ngOnInit() {
@@ -59,8 +60,9 @@ export class HomePage {
     console.log('ionViewDidLoad Welcome');
   }
 
-  getItems(done: boolean) {
-    return this.database.list<any>(`/houses/${this.houseId}/items`, ref => ref.orderByChild('done').equalTo(done));
+  getItems(done: boolean): AngularFireList<any> {
+    return this.database.list<any>(`/houses/${this.houseId}/items`,
+      ref => ref.orderByChild('done').equalTo(done));
   }
 
   openAddItem() {
@@ -107,7 +109,7 @@ export class HomePage {
       })
   }
 
-  getRandomIcon() {
+  getRandomIcon(): string {
     const iconArr = [
       'md-checkmark-circle-outline',
       'key',
@@ -121,7 +123,7 @@ export class HomePage {
     return iconArr[Math.floor(Math.random() * iconArr.length)];
   }
 
-  getRandomMessage() {
+  getRandomMessage(): string {
     return 'Nothing needs doing today';
   }
 

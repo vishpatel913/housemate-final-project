@@ -51,7 +51,7 @@ export class LoginPage {
     console.log('Join house');
     this.barcodeScanner.scan().then(barcodeData => {
       const houseId = barcodeData.text;
-      this.database.object('/users/' + this.user.id)
+      this.database.object(`/users/${this.user.id}`)
         .update({
           houseId: houseId,
         }).then(() => {
@@ -69,7 +69,7 @@ export class LoginPage {
     });
   }
 
-  isAuthed() {
+  isAuthed(): boolean {
     return this.auth.authenticated;
   }
 

@@ -17,7 +17,7 @@ page-house-details-modal {
         color: #ffffff;
 
         ::placeholder {
-          color: #ffffff80 !important;
+          color: lighten(color($colors, primary), 30) !important;
         }
       }
     }

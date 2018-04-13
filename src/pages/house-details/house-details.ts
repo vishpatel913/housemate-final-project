@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, PopoverController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from "angularfire2/database";
 import { SettingsPopover } from "../settings/settings";
 import { UserService } from "../../services/user.service";
 
@@ -18,7 +18,7 @@ export class HouseDetailsPage {
   houseDetails: AngularFireObject<any>;
   houseDetailsRef = null;
   houseUsersRef = null;
-  userCol3: boolean;
+  userSmall: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -27,7 +27,7 @@ export class HouseDetailsPage {
     private database: AngularFireDatabase,
     private user: UserService,
   ) {
-
+    this.houseId = user.houseId;
   }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class HouseDetailsPage {
     this.houseDetailsRef = this.getDetails().valueChanges();
     this.houseUsersRef = this.getUsers().valueChanges();
     this.houseUsersRef.subscribe(users => {
-      this.userCol3 = users.length == 4 || users.length > 6;
+      this.userSmall = users.length > 6 && users.length != 9;
     });
   }
 
@@ -53,11 +53,13 @@ export class HouseDetailsPage {
     return this.database.list<any>(`/houses/${this.houseId}/details`);
   }
 
-  getUsers() {
+  getUsers(): AngularFireList<any> {
     return this.database.list<any>(`/houses/${this.houseId}/users`);
+    // return this.database.list<any>(`/users/`,
+    //   ref => ref.orderByChild('houseId').equalTo(this.houseId));
   }
 
-  getFirstName(name) {
+  getFirstName(name: string): string {
     return name.split(' ')[0];
   }
 

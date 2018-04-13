@@ -15,9 +15,11 @@ page-login {
     }
 
     &-text {
-      color: color($colors, dark);
+      color: color($colors, primary);
       text-align: center;
       margin: 20px;
+      // padding: 0 40px;
+      font-weight: bold;
     }
   }
 

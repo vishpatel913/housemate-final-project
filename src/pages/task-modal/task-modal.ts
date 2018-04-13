@@ -14,7 +14,7 @@ export class TaskModal {
   @ViewChild('task') taskInput;
   itemListRef$: AngularFireList<any>;
   todo = this.navParams.get('data'); // = { id, text, createdby, category, important, new, houseId }
-  categories;
+  categories: any[];
   usersRef;
 
   constructor(
@@ -82,7 +82,7 @@ export class TaskModal {
     this.viewCtrl.dismiss(data);
   }
 
-  getCategoryArray() {
+  getCategoryArray(): any[] {
     let catArr = [];
     for (let key in Category) {
       catArr.push(Category[key]);

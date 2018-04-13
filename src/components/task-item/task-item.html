@@ -9,7 +9,7 @@
         </span>
       </span>
       <div class="task-item-details-category">
-        <ion-icon name="bookmark" [color]="category.key" *ngIf="!task.done"></ion-icon>
+        <ion-icon name="bookmark" [color]="task.done ? 'light' : category.key"></ion-icon>
         <span>{{category.name}}</span>
       </div>
     </div>

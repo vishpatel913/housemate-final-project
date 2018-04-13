@@ -29,10 +29,10 @@
       <ion-row justify-content-around >
         <ion-col align-self-center
           *ngFor="let user of (houseUsersRef | async); let index = index"
-          [attr.col-3]="userCol3 ? '' : null"
-          [attr.col-4]="!userCol3 ? '' : null">
-          <div class="user" [class.smaller]="!userCol3">
-            <img class="user-image" [class.active]="user.id == userId" src={{user.image}}>
+          [attr.col-3]="userSmall ? '' : null"
+          [attr.col-4]="!userSmall ? '' : null">
+          <div class="user" [class.smaller]="!userSmall">
+            <img class="user-image" [class.active]="user.id == userId" src={{user.image}} alt="User profile picture">
             <span class="user-name">{{getFirstName(user.name)}}</span>
           </div>
         </ion-col>

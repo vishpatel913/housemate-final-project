@@ -71,14 +71,14 @@ export class TaskItemComponent {
     if (tagId && tagId !== '') {
       this.database.object<any>(`/houses/${this.houseId}/users/${tagId}`)
         .valueChanges().subscribe(user => {
-          this.userTag = '@' + user.name.split(' ')[0];
+          if (!!user) this.userTag = '@' + user.name.split(' ')[0];
           console.log(this.task.taggeduser, this.userTag);
         })
     }
   }
 
-  getEasterEgg() {
+  getEasterEgg(): string {
     let text = this.task.text;
-    if (text.search('.*beer.*') == 0) return 'beer';
+    if (text.search('.*(beer|Beer|BEER).*') == 0) return 'beer';
   }
 }

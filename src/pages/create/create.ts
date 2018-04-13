@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { AuthService } from "../../services/auth.service";
+import { UserService } from "../../services/user.service";
 import { TabsPage } from "../tabs/tabs";
 
 
@@ -22,6 +23,7 @@ export class CreatePage {
     private formBuilder: FormBuilder,
     private database: AngularFireDatabase,
     private auth: AuthService,
+    private user: UserService,
   ) {
     this.houseListRef = this.database.list<any>('/houses');
     // this.houseForm = this.formBuilder.group({
@@ -43,37 +45,38 @@ export class CreatePage {
   createHouse() {
     const newHouseRef = this.houseListRef.push({});
     const newHouseKey = newHouseRef.key;
-    const userId = this.auth.currentUserId;
     newHouseRef.set({
       id: newHouseKey,
       name: this.house.name || this.defaultHouseName(newHouseKey),
     }).then(_ => {
       if (this.house.details) this.setHouseDetails(newHouseKey);
-      const newUserRef = this.database.object(`/houses/${newHouseKey}/users/${userId}`);
+      const newUserRef = this.database.object(`/houses/${newHouseKey}/users/${this.user.id}`);
       newUserRef.update({
-        id: userId,
-        name: this.auth.currentUserName,
+        id: this.user.id,
+        name: this.user.name,
+        image: this.user.image
       });
     });
-    this.database.object<any>(`/users/${userId}`)
+    this.database.object<any>(`/users/${this.user.id}`)
       .update({
         houseId: newHouseKey
       });
+    this.user.houseId = newHouseKey;
     this.navCtrl.setRoot(TabsPage);
   }
 
   setHouseDetails(id: string) {
-    const houseDetails = this.database.list<any>(`/houses/${id}/details`);
+    const houseDetailsRef = this.database.list<any>(`/houses/${id}/details`);
     const details = this.house.details.split('\n');
     for (let detail of details) {
-      const newDetailRef = houseDetails.push({});
+      const newDetailRef = houseDetailsRef.push({});
       newDetailRef.set({
         text: detail
       });
     }
   }
 
-  defaultHouseName(id: string) {
+  defaultHouseName(id: string): string {
     let limit = id.length - 7;
     let i = Math.floor(Math.random() * limit)
     return 'House ' + id.substring(i, i + 7);

@@ -16,21 +16,21 @@ export class UserService {
 
   }
 
-  get id() {
+  get id(): string {
     return this.auth.currentUserId;
   }
 
-  get name() {
+  get name(): string {
     let names = this.auth.currentUserName.split(' ');
     let displayName = names[0] + " " + names[names.length-1];
     return displayName;
   }
 
-  get image() {
+  get image(): string {
     return this.auth.currentUserPhotoUrl;
   }
 
-  get houseId() {
+  get houseId(): string {
     return this._houseId;
   }
 
@@ -38,7 +38,7 @@ export class UserService {
     this._houseId = value;
   }
 
-  get houseName() {
+  get houseName(): string {
     return this._houseName;
   }
 
