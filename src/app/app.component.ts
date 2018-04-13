@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Keyboard, StatusBar } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Keyboard } from 'ionic-native';
 import firebase from 'firebase';
 import { AngularFireDatabase } from "angularfire2/database";
 import { AuthService } from '../services/auth.service';
@@ -18,6 +19,7 @@ export class MyApp {
   constructor(
     platform: Platform,
     splashScreen: SplashScreen,
+    statusBar: StatusBar,
     private database: AngularFireDatabase,
     private auth: AuthService,
     private user: UserService
@@ -32,8 +34,10 @@ export class MyApp {
                 this.user.houseName = houseDetails.name;
               });
             this.rootPage = TabsPage;
+            splashScreen.hide();
           } else {
             this.rootPage = LoginPage;
+            splashScreen.hide();
           }
         });
       } else {
@@ -46,10 +50,14 @@ export class MyApp {
                 this.user.houseName = houseDetails.name;
               });
             this.rootPage = TabsPage;
+            splashScreen.hide();
           });
         }
         // End of testing code
-        else this.rootPage = LoginPage;
+        else {
+          this.rootPage = LoginPage;
+          splashScreen.hide();
+        }
       }
     });
 
@@ -57,8 +65,9 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       Keyboard.disableScroll(true);
-      StatusBar.styleBlackTranslucent();
-      splashScreen.hide();
+      statusBar.styleBlackTranslucent();
+      statusBar.backgroundColorByHexString('#462882');
+      // splashScreen.hide();
     });
 
   }

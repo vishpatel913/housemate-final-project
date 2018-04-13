@@ -25,6 +25,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutoHideSplashScreen" value="false" />
     <preference name="AndroidLaunchMode" value="singleTask" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <platform name="android">
@@ -47,6 +48,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <preference name="ShowSplashScreenSpinner" value="false" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
