@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AuthService } from "../../services/auth.service";
@@ -18,6 +18,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public loadingCtrl: LoadingController,
     private database: AngularFireDatabase,
     private barcodeScanner: BarcodeScanner,
     private auth: AuthService,
@@ -29,11 +30,16 @@ export class LoginPage {
   // TODO: error message plugin_not_found also fix plugman problem ffs -> plugins/cordova-universal-links-plugin/hooks/lib/ios/xcodePreferences.js
   login() {
     this.auth.signInWithFacebook().then(() => {
+      let loading = this.loadingCtrl.create({
+        content: 'Logging in...'
+      });
+      loading.present();
       this.user.retrieveUser().subscribe(userDetails => {
         if (!!userDetails.houseId) {
           this.user.houseId = userDetails.houseId;
           this.navCtrl.setRoot(TabsPage);
         }
+        loading.dismiss();
       });
     });
   }

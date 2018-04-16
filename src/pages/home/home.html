@@ -24,8 +24,9 @@
     </button> -->
   </ion-item>
   <ion-list no-lines class="task-list">
-    <task-item *ngFor="let todoItem of (todoItems | async)" [item]="todoItem"></task-item>
-  </ion-list>
+  <task-item *ngFor="let todoItem of (todoItems | async)" [item]="todoItem">
+  </task-item>
+</ion-list>
   <button ion-button outline block padding class="button-primary" color="secondary" *ngIf="doneItemsBool" (click)="toggleShowDone()">{{toggleButtonText}}</button>
   <ion-list no-lines class="task-list done" *ngIf="showDoneItems">
     <task-item *ngFor="let doneItem of (doneItems | async)" [item]="doneItem"></task-item>
@@ -33,7 +34,7 @@
 
   <ion-fab right bottom>
     <button ion-fab color="secondary" (click)="openAddItem()">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="md-add"></ion-icon>
     </button>
     <!-- <ion-fab-list side="top">
       <button ion-fab><ion-icon name="cash"></ion-icon></button>

@@ -24,7 +24,7 @@
 
   <ion-fab top right edge>
     <button ion-fab color="secondary" class="house-add" (click)="updateHouseDetails()">
-      <ion-icon name="send"></ion-icon>
+      <ion-icon name="md-send"></ion-icon>
     </button>
   </ion-fab>
   <ion-item class="house-details">
@@ -32,7 +32,9 @@
     <ion-label color="secondary" stacked>
       House Details
     </ion-label>
-    <ion-textarea #detailInput color="secondary" type="text" rows="5" maxLength="500" placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc." (keyup)="resize()" [(ngModel)]="house.details" name="details">
+    <ion-textarea #detailInput color="secondary" type="text" rows="5" maxLength="500"
+      placeholder="E.g. \nWiFi password \nLandlord's number \nBill details\netc."
+      (keyup)="resize()" [(ngModel)]="house.details" name="details">
       {{house.details}}
     </ion-textarea>
   </ion-item>

@@ -55,8 +55,6 @@ export class HouseDetailsPage {
 
   getUsers(): AngularFireList<any> {
     return this.database.list<any>(`/houses/${this.houseId}/users`);
-    // return this.database.list<any>(`/users/`,
-    //   ref => ref.orderByChild('houseId').equalTo(this.houseId));
   }
 
   getFirstName(name: string): string {
@@ -75,6 +73,7 @@ export class HouseDetailsPage {
     for (let key in this.houseDetails) {
       detailString = detailString + this.houseDetails[key].text + '\n';
     }
+    detailString = detailString.replace(/\n$/g, ''); 
     const editModalOptions: ModalOptions = {
       showBackdrop: true,
       enableBackdropDismiss: true,
@@ -86,6 +85,11 @@ export class HouseDetailsPage {
     };
     const editDetailsModal: Modal = this.modalCtrl.create('HouseDetailsModal', { data: editModalData }, editModalOptions);
     editDetailsModal.present();
+  }
+
+  getIcon(detail: string): string {
+    if (detail.search('.*(w|W)i-?(f|F)i.*') == 0) return 'wifi';
+    else if (detail.search('.*(p|P)hone.*') == 0) return 'call';
   }
 
 }

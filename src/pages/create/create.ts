@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { AuthService } from "../../services/auth.service";
@@ -20,6 +20,7 @@ export class CreatePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private database: AngularFireDatabase,
     private auth: AuthService,
@@ -40,6 +41,32 @@ export class CreatePage {
 
   goLogin() {
     this.navCtrl.pop({ animate: false });
+  }
+
+  handleCreate() {
+    if (!!this.house.name) {
+      this.createHouse();
+    } else {
+      let confirmCreate = this.alertCtrl.create({
+        title: 'No house name?',
+        message: 'House will be given a default name, which can be changed in the House Details page. Continue?',
+        buttons: [
+          {
+            text: 'No',
+            handler: () => {
+
+            }
+          },
+          {
+            text: 'Create',
+            handler: () => {
+              this.createHouse();
+            }
+          }
+        ]
+      });
+      confirmCreate.present();
+    }
   }
 
   createHouse() {

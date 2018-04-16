@@ -1,7 +1,7 @@
 <ion-content padding>
 
   <div class="logo">
-    <img class="logo-image" alt="App logo" src="/assets/imgs/logo.png" />
+    <img class="logo-image" alt="App logo" src="assets/imgs/logo.png" />
     <!-- <img class="logo-image" alt="Temp app logo"  src="https://www.shareicon.net/data/2017/01/24/875047_snake_512x512.png" /> -->
     <h1 class="logo-text">The <br/>Perfect Housemate</h1>
   </div>
@@ -20,7 +20,7 @@
   <div class="footer" *ngIf="isAuthed()">
     <div class="footer-user">
       <ion-avatar class="footer-user-image">
-        <img class="footer-user-image" src={{getUserDetails().image}} alt="User profile picture">
+        <img class="footer-user-image" alt="User profile picture" src='{{getUserDetails().image}}'>
       </ion-avatar>
       <div class="footer-user-text">
         <span class="user-title">Signed in as</span>

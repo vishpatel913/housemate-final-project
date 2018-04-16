@@ -79,6 +79,8 @@ export class TaskItemComponent {
 
   getEasterEgg(): string {
     let text = this.task.text;
-    if (text.search('.*(beer|Beer|BEER).*') == 0) return 'beer';
+    if (text.search('.*(b|B)eer.*') == 0) return 'beer';
+    else if (text.search('.*((c|C)rate|(p|P)ub).*') == 0) return 'beer';
+    else if (text.search('.*(w|W)ine.*') == 0) return 'wine';
   }
 }
