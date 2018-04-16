@@ -65,6 +65,7 @@ export class LoginPage {
         }).then(() => {
           this.user.houseId = houseId;
           this.notification.subscribeToHouse(houseId);
+          this.notification.sendNewUserNotification(this.user.name, this.user.image);
           const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.id}`);
           newUserRef.update({
             id: this.user.id,

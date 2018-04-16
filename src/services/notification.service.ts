@@ -38,11 +38,12 @@ export class NotificationService {
     });
 
     this.fcm.onNotification().subscribe(data => {
-      this.database.object<any>(`/houses/${this.user.houseId}/users/${data.user}`)
+      if (data.newTask) {
+        this.database.object<any>(`/houses/${this.user.houseId}/users/${data.user}`)
         .valueChanges().subscribe(user => {
           if (this.user.id != data.user) {
             let toast = this.toastCtrl.create({
-              message: `New task added by ${user.name.split(' ')[0]}`,
+              message: `New task added by ${user.name.split(' ')[0]} #${data.category}`,
               duration: 2000,
               position: 'bottom',
               showCloseButton: true,
@@ -51,6 +52,7 @@ export class NotificationService {
             toast.present();
           }
         });
+      }
     });
 
     this.fcm.onTokenRefresh().subscribe(token => {
@@ -60,7 +62,6 @@ export class NotificationService {
   }
 
   sendHouseNotification(task: TaskItem) {
-
     let body = {
       "notification": {
         "title": this.user.houseName,
@@ -70,8 +71,10 @@ export class NotificationService {
         "icon": "fcm_push_icon",
       },
       "data": {
+        "newTask": true,
         "text": task.text,
         "user": task.createdby,
+        "category": task.category,
       },
       "to": `/topics/${this.user.houseId}`,
       "priority": "high",
@@ -81,7 +84,28 @@ export class NotificationService {
     this.http.post("https://fcm.googleapis.com/fcm/send", body, {
       headers: options.set('Authorization', 'key=AAAA4wWKT9M:APA91bEMnoNCK0EBgdQil_GEtuW4YGtZ97lxeBAiOMO9PPEl8mJsGB7dB4uxL9XqOaElxufTCsl1lCH4erTwIjSuJ6va0NR7Xluf-zOVGlnwF2fTlOeUdXL_2M6mMWIWsnn7G-X8mWgL'),
     }).subscribe();
-    console.log(body);
+  }
+
+  sendNewUserNotification(name: string, image: string) {
+    let body = {
+      "notification": {
+        "title": this.user.houseName,
+        "body": `${name} has joined your house`,
+        "sound": "default",
+        "click_action": "FCM_PLUGIN_ACTIVITY",
+        "icon": image,
+      },
+      "data": {
+        "newUser": true,
+      },
+      "to": `/topics/${this.user.houseId}`,
+      "priority": "high",
+      "restricted_package_name": ""
+    }
+    let options = new HttpHeaders().set('Content-Type', 'application/json');
+    this.http.post("https://fcm.googleapis.com/fcm/send", body, {
+      headers: options.set('Authorization', 'key=AAAA4wWKT9M:APA91bEMnoNCK0EBgdQil_GEtuW4YGtZ97lxeBAiOMO9PPEl8mJsGB7dB4uxL9XqOaElxufTCsl1lCH4erTwIjSuJ6va0NR7Xluf-zOVGlnwF2fTlOeUdXL_2M6mMWIWsnn7G-X8mWgL'),
+    }).subscribe();
   }
 
 }

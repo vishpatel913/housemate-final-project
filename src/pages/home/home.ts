@@ -84,7 +84,7 @@ export class HomePage {
 
   toggleShowDone() {
     this.showDoneItems = !this.showDoneItems;
-    this.toggleButtonText = this.showDoneItems ? "Completed" : "Show Completed"
+    this.toggleButtonText = this.showDoneItems ? "Completed" : "Show Completed";
   }
 
   addUser() {
