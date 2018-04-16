@@ -3,9 +3,10 @@ import { NavController, ViewController, AlertController } from 'ionic-angular';
 
 import { AngularFireDatabase } from "angularfire2/database";
 
-import { LoginPage } from '../login/login';
+import { LoginPage } from "../login/login";
 import { AuthService } from "../../services/auth.service";
 import { UserService } from "../../services/user.service";
+import { NotificationService } from "../../services/notification.service";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class SettingsPopover {
     private database: AngularFireDatabase,
     private auth: AuthService,
     private user: UserService,
+    private notification: NotificationService,
 
   ) {
     this.userId = user.id;
@@ -55,6 +57,7 @@ export class SettingsPopover {
               .remove();
             this.database.object<any>(`/houses/${this.houseId}/users/${this.userId}`)
               .remove();
+            this.notification.unsubscribeFromHouse();
             this.navCtrl.setRoot(LoginPage);
           }
         }

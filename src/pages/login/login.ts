@@ -4,6 +4,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AuthService } from "../../services/auth.service";
 import { UserService } from "../../services/user.service";
+import { NotificationService } from "../../services/notification.service";
 import { TabsPage } from '../tabs/tabs';
 import { CreatePage } from '../create/create';
 
@@ -23,6 +24,7 @@ export class LoginPage {
     private barcodeScanner: BarcodeScanner,
     private auth: AuthService,
     private user: UserService,
+    private notification: NotificationService,
   ) {
 
   }
@@ -62,6 +64,7 @@ export class LoginPage {
           houseId: houseId,
         }).then(() => {
           this.user.houseId = houseId;
+          this.notification.subscribeToHouse(houseId);
           const newUserRef = this.database.object(`/houses/${houseId}/users/${this.user.id}`);
           newUserRef.update({
             id: this.user.id,

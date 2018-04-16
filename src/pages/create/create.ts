@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { AuthService } from "../../services/auth.service";
 import { UserService } from "../../services/user.service";
+import { NotificationService } from "../../services/notification.service";
 import { TabsPage } from "../tabs/tabs";
 
 
@@ -25,6 +26,7 @@ export class CreatePage {
     private database: AngularFireDatabase,
     private auth: AuthService,
     private user: UserService,
+    private notification: NotificationService,
   ) {
     this.houseListRef = this.database.list<any>('/houses');
     // this.houseForm = this.formBuilder.group({
@@ -75,7 +77,7 @@ export class CreatePage {
     newHouseRef.set({
       id: newHouseKey,
       name: this.house.name || this.defaultHouseName(newHouseKey),
-    }).then(_ => {
+    }).then(() => {
       if (this.house.details) this.setHouseDetails(newHouseKey);
       const newUserRef = this.database.object(`/houses/${newHouseKey}/users/${this.user.id}`);
       newUserRef.update({
@@ -89,6 +91,7 @@ export class CreatePage {
         houseId: newHouseKey
       });
     this.user.houseId = newHouseKey;
+    this.notification.subscribeToHouse(newHouseKey);
     this.navCtrl.setRoot(TabsPage);
   }
 

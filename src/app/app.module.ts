@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Keyboard } from 'ionic-native';
 import { Facebook } from '@ionic-native/facebook';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { FCM } from '@ionic-native/fcm';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -15,6 +17,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { AuthService } from "../services/auth.service"
 import { UserService } from "../services/user.service"
+import { NotificationService } from "../services/notification.service"
 
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -56,6 +59,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgxQRCodeModule,
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -77,8 +81,10 @@ export const firebaseConfig = {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     UserService,
+    NotificationService,
     AngularFireAuthModule,
-    BarcodeScanner
+    BarcodeScanner,
+    FCM,
   ]
 })
 export class AppModule { }
