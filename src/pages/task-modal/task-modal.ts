@@ -1,8 +1,9 @@
 import { Keyboard } from 'ionic-native';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { Category } from '../../models/task-item/category.model';
+import { NotificationService } from '../../services/notification.service';
 
 @IonicPage()
 @Component({
@@ -20,8 +21,10 @@ export class TaskModal {
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ViewController,
+    private toastCtrl: ToastController,
     public navParams: NavParams,
     private database: AngularFireDatabase,
+    private notification: NotificationService,
   ) {
     this.itemListRef$ = this.database.list<any>(`/houses/${this.todo.houseId}/items`);
     this.categories = this.getCategoryArray();
@@ -32,19 +35,33 @@ export class TaskModal {
     setTimeout(() => {
       Keyboard.show() // for android
       this.taskInput.setFocus();
-    }, 150);
+    }, 50);
     console.log(this.todo);
   }
 
   handleTaskModal() {
+    let toastOptions = {
+      message: '',
+      duration: 2000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'Hide',
+    };
     if (this.todo.text !== '') {
       if (this.todo.new) {
         this.saveItem();
+        this.notification.sendHouseNotification(this.todo);
+        toastOptions.message = `${Category[this.todo.category].name} task added`
+        this.toastCtrl.create(toastOptions).present();
       } else {
         this.editItem();
+        toastOptions.message = `Task editted`
+        this.toastCtrl.create(toastOptions).present();
       }
     } else {
       this.closeModal();
+      toastOptions.message = `No task added`
+      this.toastCtrl.create(toastOptions).present();
     }
   }
 
