@@ -1,5 +1,5 @@
 # The Perfect Housemate
-## Ionic Firebase Dissertation Project
+## Final Year Ionic & Firebase Project
 A shared task app for student housemates
 ## Frameworks, Tools & Libraries
 Ionic 3
