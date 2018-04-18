@@ -2,10 +2,10 @@
 ## Final Year Ionic & Firebase Project
 A shared task app for student housemates
 ## Frameworks, Tools & Libraries
-Ionic 3
-Angular 4
-Firebase
-TypeScript
+- Ionic 3
+- Angular 4
+- Firebase
+- TypeScript
 ## Features
 - Add tasks that all housemates can see
 - Set attributes like categories and tags
