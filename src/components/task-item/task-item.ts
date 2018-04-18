@@ -72,7 +72,6 @@ export class TaskItemComponent {
       this.database.object<any>(`/houses/${this.houseId}/users/${tagId}`)
         .valueChanges().subscribe(user => {
           if (!!user) this.userTag = '@' + user.name.split(' ')[0];
-          console.log(this.task.taggeduser, this.userTag);
         })
     }
   }

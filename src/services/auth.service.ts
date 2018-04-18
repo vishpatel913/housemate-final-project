@@ -58,13 +58,11 @@ export class AuthService {
       const credential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
       firebase.auth().signInWithCredential(credential).then(userData => {
         this.userDetails = userData;
-        this.addCurrentUser();
-      })
-    }).catch((error) => {
-      console.log(error) ;
-      // if (error == 'cordova_not_available') this.userDetails = MockUserData;
+        this.updateCurrentUser();
+      });
+    }).catch(error => {
+      alert(error);
     });
-    // TODO: will need loading screen/trick for delay
   }
 
   signOut() {
@@ -76,7 +74,7 @@ export class AuthService {
     });
   }
 
-  addCurrentUser() {
+  updateCurrentUser() {
     const newUserRef = this.database.object(`/users/${this.currentUserId}/`);
     newUserRef.update({
       id: this.currentUserId,

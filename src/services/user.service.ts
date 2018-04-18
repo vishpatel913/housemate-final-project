@@ -49,8 +49,6 @@ export class UserService {
   retrieveUser(id: string = this.id) {
     this.user = this.database.object('/users/' + id)
       .valueChanges();
-      // .publishReplay(1)
-      // .refCount();
     return this.user;
   }
 

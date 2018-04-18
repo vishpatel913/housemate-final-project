@@ -30,7 +30,7 @@ export class AddUserPage {
     this.database.object<any>('/houses/' + this.createdCode)
       .valueChanges().subscribe(house => {
         this.houseName = house.name;
-      })
+      });
   }
 
 }

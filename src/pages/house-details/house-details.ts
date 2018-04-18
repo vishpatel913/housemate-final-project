@@ -49,7 +49,7 @@ export class HouseDetailsPage {
     console.log('ionViewDidLoad HouseDetailsPage');
   }
 
-  getDetails() {
+  getDetails(): AngularFireList<any> {
     return this.database.list<any>(`/houses/${this.houseId}/details`);
   }
 
@@ -73,7 +73,7 @@ export class HouseDetailsPage {
     for (let key in this.houseDetails) {
       detailString = detailString + this.houseDetails[key].text + '\n';
     }
-    detailString = detailString.replace(/\n$/g, ''); 
+    detailString = detailString.replace(/\n$/g, '');
     const editModalOptions: ModalOptions = {
       showBackdrop: true,
       enableBackdropDismiss: true,

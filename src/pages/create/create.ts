@@ -56,7 +56,6 @@ export class CreatePage {
           {
             text: 'No',
             handler: () => {
-
             }
           },
           {

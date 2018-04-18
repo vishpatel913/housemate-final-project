@@ -55,7 +55,7 @@ export class TaskModal {
         this.toastCtrl.create(toastOptions).present();
       } else {
         this.editItem();
-        toastOptions.message = `Task editted`
+        toastOptions.message = `Task edited`
         this.toastCtrl.create(toastOptions).present();
       }
     } else {

@@ -31,7 +31,7 @@ export class NotificationService {
     this.fcm.unsubscribeFromTopic(this.user.houseId);
   }
 
-  handleNotification() {
+  handleNotifications() {
     this.fcm.getToken().then(token => {
       console.log('FCM token:', token);
       // handle.registerToken(token);
@@ -40,18 +40,18 @@ export class NotificationService {
     this.fcm.onNotification().subscribe(data => {
       if (data.newTask) {
         this.database.object<any>(`/houses/${this.user.houseId}/users/${data.user}`)
-        .valueChanges().subscribe(user => {
-          if (this.user.id != data.user) {
-            let toast = this.toastCtrl.create({
-              message: `New task added by ${user.name.split(' ')[0]} #${data.category}`,
-              duration: 2000,
-              position: 'bottom',
-              showCloseButton: true,
-              closeButtonText: 'Hide',
-            });
-            toast.present();
-          }
-        });
+          .valueChanges().subscribe(user => {
+            if (this.user.id != data.user) {
+              let toast = this.toastCtrl.create({
+                message: `New ${data.category} task added by ${user.name.split(' ')[0]}`,
+                duration: 2000,
+                position: 'bottom',
+                showCloseButton: true,
+                closeButtonText: 'Hide',
+              });
+              toast.present();
+            }
+          });
       }
     });
 

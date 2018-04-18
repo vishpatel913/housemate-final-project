@@ -3,7 +3,6 @@ import { Platform } from 'ionic-angular';
 import { Keyboard } from 'ionic-native';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-// import { FCM } from '@ionic-native/fcm';
 import firebase from 'firebase';
 import { AngularFireDatabase } from "angularfire2/database";
 import { AuthService } from '../services/auth.service';
@@ -23,7 +22,6 @@ export class MyApp {
     splashScreen: SplashScreen,
     statusBar: StatusBar,
     private database: AngularFireDatabase,
-    // private fcm: FCM,
     private auth: AuthService,
     private user: UserService,
     private notification: NotificationService
@@ -67,14 +65,13 @@ export class MyApp {
     });
 
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      
       Keyboard.disableScroll(true);
       statusBar.styleBlackTranslucent();
       statusBar.backgroundColorByHexString('#462882');
 
       // Push notifiction service
-      if(platform.is('cordova')) notification.handleNotification();
+      if(platform.is('cordova')) notification.handleNotifications();
 
       // splashScreen.hide();
 

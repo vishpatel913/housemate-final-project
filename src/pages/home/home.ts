@@ -3,8 +3,10 @@ import { NavController } from 'ionic-angular';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
-import { AddUserPage } from "../add-user/add-user"
-import { UserService } from "../../services/user.service"
+import { AddUserPage } from "../add-user/add-user";
+import { UserService } from "../../services/user.service";
+import { TaskItem } from "../../models/task-item/task-item.interface";
+
 
 @Component({
   selector: 'page-home',
@@ -91,7 +93,7 @@ export class HomePage {
     this.navCtrl.push(AddUserPage);
   }
 
-  deleteItem(item) {
+  deleteItem(item: TaskItem) {
     this.database.object<any>(`/houses/${this.houseId}/items/${item.id}`)
       .remove();
   }
@@ -124,7 +126,10 @@ export class HomePage {
   }
 
   getRandomMessage(): string {
-    return 'Nothing needs doing today';
+    const msgArr = [
+      'Nothing needs doing today',
+    ];
+    return msgArr[Math.floor(Math.random() * msgArr.length)];
   }
 
 }
