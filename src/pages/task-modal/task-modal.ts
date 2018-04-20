@@ -36,7 +36,7 @@ export class TaskModal {
       Keyboard.show() // for android
       this.taskInput.setFocus();
     }, 50);
-    console.log(this.todo);
+    console.log('Task data', this.todo);
   }
 
   handleTaskModal() {

@@ -23,7 +23,7 @@ export class HouseDetailsModal {
 
   ionViewDidLoad() {
     const data = this.navParams.get('data');
-    console.log(data);
+    console.log('House details', data);
   }
 
   resize() {

@@ -54,7 +54,6 @@ export class HomePage {
     });
     this.todoItems.subscribe(data => {
       this.noTasks = data.length < 1 && !this.doneItemsBool;
-      console.log('no tasks?', this.noTasks)
     })
   }
 
