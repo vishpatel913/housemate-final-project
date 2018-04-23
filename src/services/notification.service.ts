@@ -41,18 +41,16 @@ export class NotificationService {
       if (data.newTask) {
         this.database.object<any>(`/houses/${this.user.houseId}/users/${data.user}`)
           .valueChanges().subscribe(user => {
-            if (this.user.id != data.user) {
-              let toast = this.toastCtrl.create({
-                message: `New ${data.category} task added by ${user.name.split(' ')[0]}`,
-                duration: 2000,
-                position: 'bottom',
-                showCloseButton: true,
-                closeButtonText: 'Hide',
-              });
-              toast.present();
-            }
+            let toast = this.toastCtrl.create({
+              message: `New ${data.category} task added by ${user.name.split(' ')[0]}`,
+              duration: 2000,
+              position: 'bottom',
+              showCloseButton: true,
+              closeButtonText: 'Hide',
+            });
+            toast.present();
           });
-      }
+      };
     });
 
     this.fcm.onTokenRefresh().subscribe(token => {

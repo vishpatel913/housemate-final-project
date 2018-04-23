@@ -31,4 +31,18 @@
 
 ion-input {
   caret-color: color($colors, secondary);
+
+  ::selection {
+    color: #ffffff;
+    background: color($colors, secondary);
+  }
+}
+
+ion-textarea {
+  caret-color: color($colors, secondary);
+  
+  ::selection {
+    color: #ffffff;
+    background: color($colors, secondary);
+  }
 }
