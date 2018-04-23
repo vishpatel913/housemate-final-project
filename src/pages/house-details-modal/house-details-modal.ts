@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
 
 @IonicPage()
@@ -15,7 +15,8 @@ export class HouseDetailsModal {
 
   constructor(
     public navCtrl: NavController,
-    public viewCtrl : ViewController,
+    public viewCtrl: ViewController,
+    private toastCtrl: ToastController,
     public navParams: NavParams,
     private database: AngularFireDatabase,
   ) {
@@ -50,6 +51,14 @@ export class HouseDetailsModal {
         text: detail
       });
     }
+    let toastOptions = {
+      message: `${this.house.name} details updated`,
+      duration: 2000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'Hide',
+    };
+    this.toastCtrl.create(toastOptions).present();
     this.closeModal();
   }
 
