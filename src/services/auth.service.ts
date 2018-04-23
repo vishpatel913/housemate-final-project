@@ -52,7 +52,7 @@ export class AuthService {
     return this.authenticated ? this.userDetails.photoURL : '';
   }
 
-  signInWithFacebook() {
+  signInWithFacebook(): Promise<void> {
     console.log('Sign in with Facebook');
     return this.facebook.login(["email"]).then(response => {
       const credential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   signOut() {
-    firebase.auth().signOut().then(() => {
+    return firebase.auth().signOut().then(() => {
       this.userDetails = null;
       console.log('Sign-out successful');
     }).catch(error => {

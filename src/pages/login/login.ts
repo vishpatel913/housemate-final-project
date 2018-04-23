@@ -29,7 +29,7 @@ export class LoginPage {
 
   }
 
-  // TODO: error message plugin_not_found also fix plugman problem ffs -> plugins/cordova-universal-links-plugin/hooks/lib/ios/xcodePreferences.js
+  // NOTE: error message plugin_not_found also fix plugman problem ffs -> plugins/cordova-universal-links-plugin/hooks/lib/ios/xcodePreferences.js
   login() {
     this.auth.signInWithFacebook().then(() => {
       let loading = this.loadingCtrl.create({

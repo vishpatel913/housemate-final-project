@@ -82,8 +82,9 @@ export class SettingsPopover {
           text: 'Yes',
           handler: () => {
             console.log('BuBye');
-            this.auth.signOut();
-            this.navCtrl.setRoot(LoginPage);
+            this.auth.signOut().then(() => {
+              this.navCtrl.setRoot(LoginPage);
+            });
           }
         }
       ]
