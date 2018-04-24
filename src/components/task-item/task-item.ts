@@ -22,7 +22,7 @@ import { UserService } from '../../services/user.service';
     //     style({ backgroundColor: '#E91E63'}),
     //     style({ backgroundColor: '*'}),
     //   ])))
-    // ])
+    ])
   ]
 })
 export class TaskItemComponent {
