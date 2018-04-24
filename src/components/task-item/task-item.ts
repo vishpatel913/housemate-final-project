@@ -1,17 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, trigger, transition, style, state, animate, keyframes } from '@angular/core';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
 import { TaskItem, CategoryObject } from '../../models/task-item/task-item.interface';
 import { Category } from '../../models/task-item/category.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'task-item',
-  templateUrl: 'task-item.html'
+  templateUrl: 'task-item.html',
+  animations: [
+    trigger('action', [
+      state('*', style({
+        opacity: 1
+      })),
+      transition('* => removed', animate('300ms ease-out', keyframes([
+        style({ opacity: 1 }),
+        style({ opacity: 0 })
+      ]))),
+    //   transition('* => new', animate('200ms ease-in', keyframes([
+    //     style({ backgroundColor: '*'}),
+    //     style({ backgroundColor: '#E91E63'}),
+    //     style({ backgroundColor: '*'}),
+    //   ])))
+    // ])
+  ]
 })
 export class TaskItemComponent {
 
   @Input('item') task: TaskItem;
+  state: string = 'x';
+  itemRef: AngularFireObject<any>;
   houseId: string;
   userName: string;
   category: CategoryObject;
@@ -27,19 +45,28 @@ export class TaskItemComponent {
   }
 
   ngOnInit() {
+    this.itemRef = this.database.object<any>(`/houses/${this.houseId}/items/${this.task.id}`);
     this.category = Category[this.task.category];
     this.setTaggedUser();
+    this.checkNew();
     this.easterEgg = this.getEasterEgg();
   }
 
   toggleDone() {
-    let timestamp = !this.task.done ? Math.floor(Date.now() / 1000) : this.task.timecreated;
-    this.database.object<any>(`/houses/${this.houseId}/items/${this.task.id}`)
+    let timeout = 0;
+    if (!this.task.done) {
+      this.state = 'removed';
+      timeout = 300;
+    }
+    setTimeout(() => {
+      let timestamp = !this.task.done ? Math.floor(Date.now() / 1000) : this.task.timecreated;
+      this.itemRef
       .update({
         text: this.task.text,
         done: !this.task.done,
         timedone: timestamp
       });
+    }, timeout);
   }
 
   editItem() {
@@ -62,8 +89,7 @@ export class TaskItemComponent {
   }
 
   deleteItem() {
-    this.database.object<any>(`/houses/${this.houseId}/items/${this.task.id}`)
-      .remove();
+    this.itemRef.remove();
   }
 
   setTaggedUser() {
@@ -73,6 +99,15 @@ export class TaskItemComponent {
         .valueChanges().subscribe(user => {
           if (!!user) this.userTag = '@' + user.name.split(' ')[0];
         })
+    }
+  }
+
+  checkNew() {
+    let now = Math.floor(Date.now() / 1000);
+    if (now - this.task.timecreated < 300) {
+      this.state = 'new';
+    } else {
+      this.state = 'x';
     }
   }
 
