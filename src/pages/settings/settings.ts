@@ -33,6 +33,7 @@ export class SettingsPopover {
     this.houseId = user.houseId;
   }
 
+  // TODO: Add functionality for beta testing
   reportBug(){
     console.log('Report bug');
   }

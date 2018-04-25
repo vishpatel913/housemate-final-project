@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, ToastController } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { AngularFireDatabase } from "angularfire2/database";
 import { Facebook } from '@ionic-native/facebook';
@@ -14,6 +14,7 @@ export class AuthService {
 
   constructor(
     platform: Platform,
+    private toastCtrl: ToastController,
     public facebook: Facebook,
     private database: AngularFireDatabase,
   ) {
@@ -52,28 +53,34 @@ export class AuthService {
     return this.authenticated ? this.userDetails.photoURL : '';
   }
 
+  // Opens up native facebook login popup
+  // and authenticates user using credentials
+  // returned as a Promise
   signInWithFacebook(): Promise<void> {
     console.log('Sign in with Facebook');
     return this.facebook.login(["email"]).then(response => {
       const credential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
       firebase.auth().signInWithCredential(credential).then(userData => {
         this.userDetails = userData;
+        this.authConfirmationToast();
         this.updateCurrentUser();
       });
     }).catch(error => {
-      alert(error);
+      alert(JSON.stringify(error));
     });
   }
 
+  // Signs out using firebase auth
   signOut() {
     return firebase.auth().signOut().then(() => {
       this.userDetails = null;
-      console.log('Sign-out successful');
+      this.authConfirmationToast();
     }).catch(error => {
       console.log(error);
     });
   }
 
+  // Update or add the current user to database
   updateCurrentUser() {
     const newUserRef = this.database.object(`/users/${this.currentUserId}/`);
     newUserRef.update({
@@ -81,6 +88,21 @@ export class AuthService {
       name: this.currentUserName,
       photoURL: this.currentUserPhotoUrl,
     });
+  }
+
+  // Display auth message for sign in/out confirmation
+  authConfirmationToast() {
+    let toastOptions = {
+      message: '',
+      duration: 2000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'Hide',
+    };
+    toastOptions.message = this.userDetails
+      ? `Successfully signed in as ${this.currentUserName}`
+      : 'Successfully signed out';
+    this.toastCtrl.create(toastOptions).present();
   }
 
 }

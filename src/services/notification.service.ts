@@ -24,7 +24,7 @@ export class NotificationService {
   }
 
   subscribeToUser() {
-    // TODO: subscribe to user and handle so tags send notifications
+    // TODO: subscribe to user and handle so user tags send notifications
   }
 
   unsubscribeFromHouse() {
@@ -34,7 +34,7 @@ export class NotificationService {
   handleNotifications() {
     this.fcm.getToken().then(token => {
       console.log('FCM token:', token);
-      // handle.registerToken(token);
+      // TODO: handle.registerToken(token);
     });
 
     this.fcm.onNotification().subscribe(data => {
@@ -55,7 +55,7 @@ export class NotificationService {
 
     this.fcm.onTokenRefresh().subscribe(token => {
       console.log('New FCM token:', token);
-      // handle.registerToken(token);
+      // TODO: handle.registerToken(token);
     });
   }
 
