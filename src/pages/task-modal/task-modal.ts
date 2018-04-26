@@ -67,7 +67,9 @@ export class TaskModal {
   }
 
   saveItem() {
+    // creates new item in the list ref
     const newItemRef = this.itemListRef$.push({});
+    // sets item data using form inputs from ngModel todo
     newItemRef.set({
       id: newItemRef.key,
       text: this.todo.text,

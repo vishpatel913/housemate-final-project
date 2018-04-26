@@ -59,7 +59,8 @@ export class AuthService {
   signInWithFacebook(): Promise<void> {
     console.log('Sign in with Facebook');
     return this.facebook.login(["email"]).then(response => {
-      const credential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
+      const credential = firebase.auth.FacebookAuthProvider
+        .credential(response.authResponse.accessToken);
       firebase.auth().signInWithCredential(credential).then(userData => {
         this.userDetails = userData;
         this.authConfirmationToast();

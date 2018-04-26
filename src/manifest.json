@@ -1,6 +1,6 @@
 {
-  "name": "The Perfect Housemate",
-  "short_name": "The Perfect Housemate",
+  "name": "ProjectHousemate",
+  "short_name": "ProjectHousemate",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
