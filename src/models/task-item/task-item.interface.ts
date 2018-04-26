@@ -10,7 +10,7 @@ export interface TaskItem {
   important: boolean; // state of importance
 }
 
-export interface CategoryObject {
+export interface Category {
   key: string;
   name: string;
   color: string;

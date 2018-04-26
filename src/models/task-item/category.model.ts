@@ -1,4 +1,4 @@
-export const Category = {
+export const Categories = {
   general: {
     key: 'general',
     name: 'General',

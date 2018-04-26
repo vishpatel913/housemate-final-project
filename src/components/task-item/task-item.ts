@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Modal, ModalController, ModalOptions } from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
-import { TaskItem, CategoryObject } from '../../models/task-item/task-item.interface';
-import { Category } from '../../models/task-item/category.model';
+import { TaskItem, Category } from '../../models/task-item/task-item.interface';
+import { Categories } from '../../models/task-item/category.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class TaskItemComponent {
   @Input('item') task: TaskItem;
   houseId: string;
   userName: string;
-  category: CategoryObject;
+  category: Category;
   userTag: string;
   easterEgg: string;
 
@@ -27,7 +27,7 @@ export class TaskItemComponent {
   }
 
   ngOnInit() {
-    this.category = Category[this.task.category];
+    this.category = Categories[this.task.category];
     this.setTaggedUser();
     this.easterEgg = this.getEasterEgg();
   }

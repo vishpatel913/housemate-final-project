@@ -2,7 +2,8 @@ import { Keyboard } from 'ionic-native';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
-import { Category } from '../../models/task-item/category.model';
+import { Categories } from '../../models/task-item/category.model';
+import { Category } from '../../models/task-item/task-item.interface';
 import { NotificationService } from '../../services/notification.service';
 
 @IonicPage()
@@ -15,7 +16,7 @@ export class TaskModal {
   @ViewChild('task') taskInput;
   itemListRef$: AngularFireList<any>;
   todo = this.navParams.get('data'); // = { id, text, createdby, category, important, new, houseId }
-  categories: any[];
+  categories: Category[];
   usersRef;
 
   constructor(
@@ -51,7 +52,7 @@ export class TaskModal {
       if (this.todo.new) {
         this.saveItem();
         this.notification.sendHouseNotification(this.todo);
-        toastOptions.message = `${Category[this.todo.category].name} task added`
+        toastOptions.message = `${Categories[this.todo.category].name} task added`
         this.toastCtrl.create(toastOptions).present();
       } else {
         this.editItem();
@@ -99,10 +100,10 @@ export class TaskModal {
     this.viewCtrl.dismiss(data);
   }
 
-  getCategoryArray(): any[] {
+  getCategoryArray(): Category[] {
     let catArr = [];
-    for (let key in Category) {
-      catArr.push(Category[key]);
+    for (let key in Categories) {
+      catArr.push(Categories[key]);
     }
     return catArr;
   }
