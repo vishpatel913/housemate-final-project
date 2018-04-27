@@ -3,7 +3,6 @@ import { Platform, ToastController } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { AngularFireDatabase } from "angularfire2/database";
 import { Facebook } from '@ionic-native/facebook';
-
 import { MockUserData } from './mock-user-data';
 
 

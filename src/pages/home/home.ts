@@ -7,7 +7,6 @@ import { AddUserPage } from "../add-user/add-user";
 import { UserService } from "../../services/user.service";
 import { TaskItem } from "../../models/task-item/task-item.interface";
 
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -35,37 +34,51 @@ export class HomePage {
   }
 
   ngOnInit() {
+    // sets image and message for no tasks
     this.noTaskMessage = {
       icon: this.getRandomIcon(),
       text: this.getRandomMessage(),
     };
+    // sets house details for view
     this.houseId = this.user.houseId;
     this.database.object<any>('/houses/' + this.houseId)
       .valueChanges().subscribe(house => {
         this.houseName = house.name;
       });
+    // sets tasks to display
     this.todoItems = this.getItems(false).valueChanges();
     this.doneItems = this.getItems(true).valueChanges();
     this.doneItems.subscribe(data => {
+      // checks done task items and clears if old
       if (data.length > 0) {
         this.doneItemsBool = true;
         this.clearOldItems();
       } else this.doneItemsBool = false;
     });
+    // sets done item bool
     this.todoItems.subscribe(data => {
       this.noTasks = data.length < 1 && !this.doneItemsBool;
-    })
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Welcome');
   }
 
+  /**
+   * getItems() returns the task items from the database
+   * based on the passed-in boolean
+   * returning either incomplete or complete tasks
+   */
   getItems(done: boolean): AngularFireList<any> {
     return this.database.list<any>(`/houses/${this.houseId}/items`,
       ref => ref.orderByChild('done').equalTo(done));
   }
 
+  /**
+   * openAddItem() opens task modal
+   * inputs blank data so that modal creates task in database
+   */
   openAddItem() {
     const addModalOptions: ModalOptions = {
       showBackdrop: true,
@@ -83,20 +96,35 @@ export class HomePage {
     addTaskModal.present();
   }
 
+  /**
+   * toggleShowDone() toggles view of done items
+   * and sets button text accordingly
+   */
   toggleShowDone() {
     this.showDoneItems = !this.showDoneItems;
     this.toggleButtonText = this.showDoneItems ? "Completed" : "Show Completed";
   }
 
+  /**
+   * addUser() pushes the view for the add user page
+   */
   addUser() {
     this.navCtrl.push(AddUserPage);
   }
 
+  /**
+   * deleteItem() removes an item from the database
+   * based on the passed in TaskItem
+   */
   deleteItem(item: TaskItem) {
     this.database.object<any>(`/houses/${this.houseId}/items/${item.id}`)
       .remove();
   }
 
+  /**
+   * clearOldItems() runs through the done items checking the creation time
+   * and removing the items from the database with a specified age
+   */
   clearOldItems() {
     let now = Math.floor(Date.now() / 1000);
     this.getItems(true).valueChanges()
@@ -110,6 +138,9 @@ export class HomePage {
       })
   }
 
+  /**
+   * getRandomIcon() returns a random icon string
+   */
   getRandomIcon(): string {
     const iconArr = [
       'md-checkmark-circle-outline',
@@ -124,11 +155,13 @@ export class HomePage {
     return iconArr[Math.floor(Math.random() * iconArr.length)];
   }
 
+  /**
+   * getRandomMessage() returns a random message string
+   */
   getRandomMessage(): string {
     const msgArr = [
       'Nothing needs doing today',
     ];
     return msgArr[Math.floor(Math.random() * msgArr.length)];
   }
-
 }

@@ -1,34 +1,43 @@
 <ion-item-sliding>
-  <ion-item class="task-item" [class.important]="task.important" [class.done]="task.done">
+  <ion-item class="task-item"
+    [class.important]="task.important"
+    [class.done]="task.done">
     <div class="task-item-details">
       <span class="task-item-details-text">
-        <ion-icon *ngIf="easterEgg" [name]="easterEgg" [color]="!task.done ? 'secondary' : 'light'"></ion-icon>
+        <ion-icon *ngIf="easterEgg" [name]="easterEgg"
+          [color]="!task.done ? 'secondary' : 'light'"></ion-icon>
         {{task.text}}
         <span class="task-item-details-tag">
           {{userTag}}
         </span>
       </span>
       <div class="task-item-details-category">
-        <ion-icon name="bookmark" [color]="task.done ? 'light' : category.key"></ion-icon>
+        <ion-icon name="bookmark"
+          [color]="task.done ? 'light' : category.key"></ion-icon>
         <span>{{category.name}}</span>
       </div>
     </div>
     <div class="task-item-rhs">
-      <button ion-button icon-only clear [color]="!task.done ? 'primary' : 'light'" class="task-item-check" (click)="toggleDone()">
+      <button ion-button icon-only clear class="task-item-check"
+        [color]="!task.done ? 'primary' : 'light'"
+        (click)="toggleDone()">
         <ion-icon [name]="!task.done ? 'radio-button-off' : 'checkmark-circle'"></ion-icon>
       </button>
     </div>
   </ion-item>
   <ion-item-options side="left" *ngIf="!task.done" (ionSwipe)="toggleDone()">
-    <button ion-button large expandable class="task-button" color="correct" (click)="toggleDone()">
+    <button ion-button large expandable class="task-button" color="correct"
+      (click)="toggleDone()">
       <ion-icon name="md-checkmark"></ion-icon>
     </button>
   </ion-item-options>
   <ion-item-options side="right">
-    <button ion-button large class="task-button" color="secondary" (click)="deleteItem()">
+    <button ion-button large class="task-button" color="secondary"
+      (click)="deleteItem()">
       <ion-icon name="trash"></ion-icon>
     </button>
-    <button ion-button large *ngIf="!task.done" class="task-button" color="amber" (click)="editItem()">
+    <button ion-button large *ngIf="!task.done" class="task-button" color="amber"
+      (click)="editItem()">
       <ion-icon name="md-create"></ion-icon>
     </button>
   </ion-item-options>

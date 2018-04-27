@@ -27,11 +27,16 @@ export class TaskItemComponent {
   }
 
   ngOnInit() {
+    // sets task details
     this.category = Categories[this.task.category];
     this.setTaggedUser();
     this.easterEgg = this.getEasterEgg();
   }
 
+  /**
+   * toggleDone() toggles the task's done boolean in the database
+   * and sets the done timestamp
+   */
   toggleDone() {
     let timestamp = !this.task.done ? Math.floor(Date.now() / 1000) : this.task.timecreated;
     this.database.object<any>(`/houses/${this.houseId}/items/${this.task.id}`)
@@ -42,6 +47,10 @@ export class TaskItemComponent {
       });
   }
 
+  /**
+   * editItem() opens the item modal
+   * inputs task data so that modal updates task in database
+   */
   editItem() {
     const editModalOptions: ModalOptions = {
       showBackdrop: true,
@@ -61,11 +70,18 @@ export class TaskItemComponent {
     editTaskModal.present();
   }
 
+  /**
+   * deleteItem() removes the item from the database
+   */
   deleteItem() {
     this.database.object<any>(`/houses/${this.houseId}/items/${this.task.id}`)
       .remove();
   }
 
+  /**
+   * setTaggedUser() gets the tagged user name from the database
+   * for use in the view
+   */
   setTaggedUser() {
     let tagId = this.task.taggeduser;
     if (tagId && tagId !== '') {
@@ -76,6 +92,10 @@ export class TaskItemComponent {
     }
   }
 
+  /**
+   * getEasterEgg() searches the task text for easter eggs
+   * returns a string for use as an icon
+   */
   getEasterEgg(): string {
     let text = this.task.text;
     if (text.search('.*(b|B)eer.*') == 0) return 'beer';

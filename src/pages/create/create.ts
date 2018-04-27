@@ -41,17 +41,27 @@ export class CreatePage {
     console.log('ionViewDidLoad CreatePage');
   }
 
+  /**
+   * goLogin() pops the login page back without animation
+   */
   goLogin() {
     this.navCtrl.pop({ animate: false });
   }
 
+  /**
+   * handleCreate() checks if the house name is filled in
+   * then calls createHouse()
+   * gives the house a default name if field is blank
+   */
   handleCreate() {
     if (!!this.house.name) {
       this.createHouse();
     } else {
       let confirmCreate = this.alertCtrl.create({
         title: 'No house name?',
-        message: 'House will be given a default name, which can be changed in the House Details page. Continue?',
+        message: `House will be given a default name,
+                  which can be changed in the House Details page.
+                  Continue?`,
         buttons: [
           {
             text: 'No',
@@ -70,6 +80,11 @@ export class CreatePage {
     }
   }
 
+  /**
+   * createHouse() creates the house object in the database
+   * using the inputted data from the view
+   * and updating the user details with that house ID
+   */
   createHouse() {
     const newHouseRef = this.houseListRef.push({});
     const newHouseKey = newHouseRef.key;
@@ -94,6 +109,10 @@ export class CreatePage {
     this.navCtrl.setRoot(TabsPage);
   }
 
+  /**
+   * setHouseDetails() gets the text from the input field
+   * and sets the house details in the created house databasse object
+   */
   setHouseDetails(id: string) {
     const houseDetailsRef = this.database.list<any>(`/houses/${id}/details`);
     const details = this.house.details.split('\n');
@@ -105,6 +124,10 @@ export class CreatePage {
     }
   }
 
+  /**
+   * defaultHouseName() returns a default house name
+   * using the house ID as an input
+   */
   defaultHouseName(id: string): string {
     let limit = id.length - 7;
     let i = Math.floor(Math.random() * limit)
