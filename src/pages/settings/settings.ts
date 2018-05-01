@@ -34,11 +34,12 @@ export class SettingsPopover {
   }
 
   // TODO: Add functionality for beta testing
-  reportBug(){
+  reportBug() {
     console.log('Report bug');
   }
 
   leaveHouse() {
+    this.deleteHouseIfEmpty();
     let confirmLeave = this.alertCtrl.create({
       title: 'Leave House?',
       message: 'Are you sure you want to leave this house?',
@@ -59,6 +60,7 @@ export class SettingsPopover {
             this.database.object<any>(`/houses/${this.houseId}/users/${this.userId}`)
               .remove();
             this.notification.unsubscribeFromHouse();
+            this.deleteHouseIfEmpty();
             this.navCtrl.setRoot(LoginPage);
           }
         }
@@ -91,6 +93,15 @@ export class SettingsPopover {
       ]
     });
     confirmLogout.present();
+  }
+
+  deleteHouseIfEmpty() {
+    const houseRef = this.database.object<any>(`/houses/${this.houseId}`)
+    houseRef.valueChanges().subscribe(house => {
+      if (!house.users) {
+        houseRef.remove();
+      }
+    });
   }
 
   close() {
