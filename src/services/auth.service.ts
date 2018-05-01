@@ -49,7 +49,7 @@ export class AuthService {
 
   // Returns current user photo url
   get currentUserPhotoUrl(): string {
-    return this.authenticated ? this.userDetails.photoURL : '';
+    return this.authenticated ? this.userDetails.photoURL + '?type=large' : '';
   }
 
   // Opens up native facebook login popup
